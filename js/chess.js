@@ -26,7 +26,7 @@ var game = new Phaser.Game(SCREEN_WIDTH, SCREEN_HEIGHT, Phaser.AUTO, '',
 						   { preload: preload, create: create, update: update });
 
 
-var Position = function(xpos, ypos) {
+Position = function(xpos, ypos) {
 	this.xpos = xpos;
 	this.ypos = ypos;
 };
@@ -35,7 +35,7 @@ Position.prototype.index = function() {
 	return((this.ypos * BOARD_SIZE) + this.xpos);
 };
 
-var ChessBoard = function() {
+ChessBoard = function() {
 	// a board, represented in Javascript as an array
 	this.board = new Array();
 	for(var i=0; i<(BOARD_SIZE * BOARD_SIZE); i++) {
@@ -74,6 +74,13 @@ ChessBoard.prototype.setSquare = function(position, piece) {
 ChessBoard.prototype.movePiece = function(start, end) {
 	this.board[end.index()] = this.board[start.index()];
 	this.board[start.index()] = EMPTY_SQUARE;
+};
+
+GFXEngine = function() {
+};
+
+GFXEngine.prototype.drawBoard = function(board) {
+	// draw the board
 };
 
 function preload() {
