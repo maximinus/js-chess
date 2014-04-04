@@ -44,7 +44,7 @@ GFXEngine.prototype.drawBoard = function(board) {
 			var piece = board.getSquare(position);
 			if(piece != EMPTY_SQUARE) {
 				var xpos = this.boardx + BORDER_SIZE + (x * SQUARE_SIZE);
-				var ypos = this.boardy + BORDER_SIZE + (y * SQUARE_SIZE);
+				var ypos = (this.boardy + BORDER_SIZE + BOARD_SQUARE_SIZE) -((y + 1) * SQUARE_SIZE);
 				this.pieces.push(new ChessPiece(x, y, this.game.add.sprite(xpos, ypos, IMAGE_NAMES[piece])))
 			}
 		}

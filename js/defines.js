@@ -3,6 +3,7 @@
 const BOARD_SIZE = 8;
 const BOARD_GFX_SIZE = 520
 const SQUARE_SIZE = 60
+const BOARD_SQUARE_SIZE = SQUARE_SIZE * BOARD_SIZE
 // we assume border is same all the way round
 const BORDER_SIZE = (BOARD_GFX_SIZE - (SQUARE_SIZE * BOARD_SIZE)) / 2
 

@@ -28,7 +28,7 @@ ChessBoard.prototype.setupBoard = function() {
 	this.setSquare(new Position(4, 0), WHITE_KING);
 	this.setSquare(new Position(5, 0), WHITE_BISHOP);
 	this.setSquare(new Position(6, 0), WHITE_KNIGHT);
-	this.setSquare(new Position(7, 0), BLACK_ROOK);
+	this.setSquare(new Position(7, 0), WHITE_ROOK);
 	this.setSquare(new Position(0, 7), BLACK_ROOK);
 	this.setSquare(new Position(1, 7), BLACK_KNIGHT);
 	this.setSquare(new Position(2, 7), BLACK_BISHOP);
