@@ -1,6 +1,8 @@
 // basic start of chess game
 
-var game = new Phaser.Game(SCREEN_WIDTH, SCREEN_HEIGHT, Phaser.AUTO, '',
+var width = window.innerWidth * window.devicePixelRatio;
+var height = window.innerHeight * window.devicePixelRatio;
+var game = new Phaser.Game(width, height, Phaser.AUTO, '',
 						   { preload: preload, create: create, update: update });
 
 // we pollute the global namespace twice
@@ -18,7 +20,7 @@ function preload() {
 function create() {
 	// called once after preload
 	// let the graphics engine initialise now
-	gfx.init();
+	gfx.init(width, height);
 	gfx.drawBoard(engine.board);
 }
 

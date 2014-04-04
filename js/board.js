@@ -20,6 +20,7 @@ ChessBoard = function() {
 
 ChessBoard.prototype.setupBoard = function() {
 	// (0, 0) is the bottom left
+	// this is the standard startup position
 	this.setSquare(new Position(0, 0), WHITE_ROOK);
 	this.setSquare(new Position(1, 0), WHITE_KNIGHT);
 	this.setSquare(new Position(2, 0), WHITE_BISHOP);
