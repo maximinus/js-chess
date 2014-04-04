@@ -42,8 +42,16 @@ ChessBoard.prototype.setupBoard = function() {
 	};
 };
 
+ChessBoard.prototype.getIndex = function(index) {
+	return(this.board[index]);
+};
+
+ChessBoard.prototype.getSquare = function(position) {
+	return(this.board[position.index()]);
+};
+
 ChessBoard.prototype.setSquare = function(position, piece) {
-	this.board[position.index] = piece;
+	this.board[position.index()] = piece;
 };
 
 ChessBoard.prototype.movePiece = function(start, end) {

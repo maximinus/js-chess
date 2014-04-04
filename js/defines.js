@@ -3,7 +3,11 @@
 const SCREEN_WIDTH = 800
 const SCREEN_HEIGHT	= 600
 
+const BOARD_SIZE = 8;
 const BOARD_GFX_SIZE = 520
+const SQUARE_SIZE = 60
+// we assume border is same all the way round
+const BORDER_SIZE = (BOARD_GFX_SIZE - (SQUARE_SIZE * BOARD_SIZE)) / 2
 
 const BOARD_XOFFSET = (SCREEN_WIDTH - BOARD_GFX_SIZE) / 2
 const BOARD_YOFFSET = (SCREEN_HEIGHT - BOARD_GFX_SIZE) / 2
@@ -25,5 +29,4 @@ const BLACK_PAWN = 11
 const IMAGE_NAMES = ['white_king', 'white_queen', 'white_rook', 'white_bishop', 'white_knight', 'white_pawn',
 					 'black_king', 'black_queen', 'black_rook', 'black_bishop', 'black_knight', 'black_pawn']
 
-const BOARD_SIZE = 8;
 
