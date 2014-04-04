@@ -3,6 +3,11 @@
 const SCREEN_WIDTH = 800
 const SCREEN_HEIGHT	= 600
 
+const BOARD_GFX_SIZE = 520
+
+const BOARD_XOFFSET = (SCREEN_WIDTH - BOARD_GFX_SIZE) / 2
+const BOARD_YOFFSET = (SCREEN_HEIGHT - BOARD_GFX_SIZE) / 2
+
 const EMPTY_SQUARE = -1
 const WHITE_KING = 0
 const WHITE_QUEEN = 1
@@ -93,7 +98,7 @@ function preload() {
 
 function create() {
 	// just draw the board on the screen
-	game.add.sprite(0, 0, 'board');
+	game.add.sprite(BOARD_XOFFSET, BOARD_YOFFSET, 'board');
 }
 
 function update() {
