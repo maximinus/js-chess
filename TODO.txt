@@ -1,0 +1,12 @@
+
+What needs to be done.
+
+Don't delete items, just mark as completed.
+
+Get game state from external JSON file.
+Implement mouse hover over highlights screen.
+Calculate possible moves.
+Show possible moves on screen when piece clicked.
+*DONE* - Make canvas fullscreen.
+Don't populate namespace with constants.
+

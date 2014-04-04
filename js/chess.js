@@ -20,6 +20,7 @@ function preload() {
 function create() {
 	// called once after preload
 	// let the graphics engine initialise now
+	game.stage.backgroundColor = BACKGROUND_COLOUR;
 	gfx.init(width, height);
 	gfx.drawBoard(engine.board);
 }
