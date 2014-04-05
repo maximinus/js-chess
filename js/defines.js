@@ -9,6 +9,7 @@ const BORDER_SIZE = (BOARD_GFX_SIZE - (SQUARE_SIZE * BOARD_SIZE)) / 2
 
 const BACKGROUND_COLOUR = 0xbbccee;
 
+// the order of these names and the order of IMAGE_NAMES must be the same!
 const EMPTY_SQUARE = -1
 const WHITE_KING = 0
 const WHITE_QUEEN = 1

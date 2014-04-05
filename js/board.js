@@ -15,31 +15,27 @@ ChessBoard = function() {
 	for(var i=0; i<(BOARD_SIZE * BOARD_SIZE); i++) {
 		this.board.push(EMPTY_SQUARE);
 	}
-	this.setupBoard();
+	this.setupBoard(initial_start);
 };
 
-ChessBoard.prototype.setupBoard = function() {
+ChessBoard.prototype.setupBoard = function(pieces) {
 	// (0, 0) is the bottom left
-	// this is the standard startup position
-	this.setSquare(new Position(0, 0), WHITE_ROOK);
-	this.setSquare(new Position(1, 0), WHITE_KNIGHT);
-	this.setSquare(new Position(2, 0), WHITE_BISHOP);
-	this.setSquare(new Position(3, 0), WHITE_QUEEN);
-	this.setSquare(new Position(4, 0), WHITE_KING);
-	this.setSquare(new Position(5, 0), WHITE_BISHOP);
-	this.setSquare(new Position(6, 0), WHITE_KNIGHT);
-	this.setSquare(new Position(7, 0), WHITE_ROOK);
-	this.setSquare(new Position(0, 7), BLACK_ROOK);
-	this.setSquare(new Position(1, 7), BLACK_KNIGHT);
-	this.setSquare(new Position(2, 7), BLACK_BISHOP);
-	this.setSquare(new Position(3, 7), BLACK_QUEEN);
-	this.setSquare(new Position(4, 7), BLACK_KING);
-	this.setSquare(new Position(5, 7), BLACK_BISHOP);
-	this.setSquare(new Position(6, 7), BLACK_KNIGHT);
-	this.setSquare(new Position(7, 7), BLACK_ROOK);
-	for(var i=0; i<BOARD_SIZE; i++) {
-		this.setSquare(new Position(i, 1), WHITE_PAWN);
-		this.setSquare(new Position(i, 6), BLACK_PAWN);
+	// data passed is sourced from JSON, or the 'start' variable
+	// it is a ditionary, so we parse through it:
+	for(var i in pieces) {
+		// key is "xpos, ypos", split it
+		var position = i.split(',');
+		if(position.length != 2) {
+			return(false); }
+		var xpos = parseInt(position[0])
+		var ypos = parseInt(position[1])
+		if((xpos < 0) || (xpos >= BOARD_SIZE) || (ypos < 0) || (ypos >= BOARD_SIZE)) {
+			return(false); }
+		var index = IMAGE_NAMES.indexOf(pieces[i]);
+		if(index == -1) {
+			return(false); }
+		// finally!
+		this.setSquare(new Position(xpos, ypos), index);
 	};
 };
 

@@ -15,7 +15,7 @@ function preload() {
 	for(var i=0; i<IMAGE_NAMES.length; i++) {
 		game.load.image(IMAGE_NAMES[i], 'gfx/' + IMAGE_NAMES[i] + '.png');
 	}
-}
+};
 
 function create() {
 	// called once after preload
@@ -24,7 +24,7 @@ function create() {
 	gfx.init(width, height);
 	gfx.drawBoard(engine.board);
 	game.input.onDown.add(onClick, this);
-}
+};
 
 function onClick() {
 	// user has clicked screen. Need to do something?
@@ -33,5 +33,5 @@ function onClick() {
 
 function update() {
 	// called every clock tick
-}
+};
 
