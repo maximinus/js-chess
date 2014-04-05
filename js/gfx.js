@@ -30,6 +30,14 @@ GFXEngine.prototype.init = function(width, height) {
 	this.boardy = (this.height - BOARD_GFX_SIZE) / 2
 };
 
+GFXEngine.prototype.insideBoard = function(xpos, ypos) {
+	if((ypos < this.boardy + BORDER_SIZE) || (ypos > (this.boardy + BOARD_SQUARE_SIZE))) {
+		return(false); }
+	if((xpos < this.boardx + BORDER_SIZE) || (xpos > (this.boardx + BOARD_SQUARE_SIZE))) {
+		return(false); }
+	return(true);
+};
+
 GFXEngine.prototype.drawBoard = function(board) {
 	this.game.add.sprite(this.boardx, this.boardy, 'board');
 	// this should be rare! Almost always we are just moving pieces.
@@ -49,5 +57,13 @@ GFXEngine.prototype.drawBoard = function(board) {
 			}
 		}
 	}
+};
+
+GFXEngine.prototype.updateBoard = function(xpos, ypos) {
+	// xpos and ypos are click co-ords
+	if(this.insideBoard(xpos, ypos)) {
+		console.log('Click inside!'); }
+	else {
+		console.log('Outside!'); }
 };
 

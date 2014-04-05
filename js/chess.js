@@ -23,10 +23,15 @@ function create() {
 	game.stage.backgroundColor = BACKGROUND_COLOUR;
 	gfx.init(width, height);
 	gfx.drawBoard(engine.board);
+	game.input.onDown.add(onClick, this);
 }
+
+function onClick() {
+	// user has clicked screen. Need to do something?
+	gfx.updateBoard(game.input.x, game.input.y);
+};
 
 function update() {
 	// called every clock tick
-	// all we do is poll user input (i.e. nothing for now)
 }
 
