@@ -23,6 +23,7 @@ const BLACK_ROOK = 8
 const BLACK_BISHOP = 9
 const BLACK_KNIGHT = 10
 const BLACK_PAWN = 11
+const HIGHEST_PIECE = BLACK_PAWN
 
 const IMAGE_NAMES = ['white_king', 'white_queen', 'white_rook', 'white_bishop', 'white_knight', 'white_pawn',
 					 'black_king', 'black_queen', 'black_rook', 'black_bishop', 'black_knight', 'black_pawn']
