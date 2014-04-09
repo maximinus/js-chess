@@ -10,13 +10,13 @@ var engine = new ChessEngine();
 var gfx = new GFXEngine(game);
 
 function preload() {
-	game.load.image('board', 'gfx/board.png');
+	game.load.image(BOARD, 'gfx/board.png');
 	// load the other images programmatically
 	for(var i=0; i<IMAGE_NAMES.length; i++) {
 		game.load.image(IMAGE_NAMES[i], 'gfx/' + IMAGE_NAMES[i] + '.png');
 	}
-	game.load.image('hightlight_main', 'gfx/highlight_main.png');
-	game.load.image('hightlight_other', 'gfx/highlight_other.png');
+	game.load.image(HIGHLIGHT_MAIN, 'gfx/highlight_main.png');
+	game.load.image(HIGHLIGHT_OTHER, 'gfx/highlight_other.png');
 };
 
 function create() {

@@ -1,6 +1,7 @@
 // class to handle all drawing to screen and animations
 
 ChessPiece = function(xpos, ypos, sprite) {
+	// xpos and ypos are the positions on the board
 	this.xpos = xpos;
 	this.ypos = ypos;
 	this.sprite = sprite;
@@ -19,9 +20,18 @@ GFXEngine = function(game) {
 	this.game = game;
 };
 
+GFXEngine.prototype.pieceFactory = function(xpos, ypos, image) {
+	var screenx = this.boardx + BORDER_SIZE + (xpos * SQUARE_SIZE);
+	var screeny = (this.boardy + BORDER_SIZE + BOARD_SQUARE_SIZE) -((ypos + 1) * SQUARE_SIZE);
+	console.log(xpos, ypos);
+	var sprite = this.game.add.sprite(screenx, screeny, image);
+	return(new ChessPiece(xpos, ypos, sprite));
+};
+
 GFXEngine.prototype.init = function(width, height) {
 	// setup pieces
 	this.pieces = new Array();
+	this.highlights = new Array();
 	this.width = width;
 	this.height = height;
 	// now we need to calculate some constants we use
@@ -51,9 +61,7 @@ GFXEngine.prototype.drawBoard = function(board) {
 			var position = new Position(x, y);
 			var piece = board.getSquare(position);
 			if(piece != EMPTY_SQUARE) {
-				var xpos = this.boardx + BORDER_SIZE + (x * SQUARE_SIZE);
-				var ypos = (this.boardy + BORDER_SIZE + BOARD_SQUARE_SIZE) -((y + 1) * SQUARE_SIZE);
-				this.pieces.push(new ChessPiece(x, y, this.game.add.sprite(xpos, ypos, IMAGE_NAMES[piece])))
+				this.pieces.push(this.pieceFactory(x, y, IMAGE_NAMES[piece]));
 			}
 		}
 	}
@@ -62,12 +70,26 @@ GFXEngine.prototype.drawBoard = function(board) {
 GFXEngine.prototype.updateBoard = function(xpos, ypos) {
 	// xpos and ypos are click co-ords
 	if(this.insideBoard(xpos, ypos)) {
-		console.log('Click inside!'); }
-	else {
-		console.log('Outside!'); }
+		this.highlightSquare(xpos, ypos);
+	}
 };
 
 GFXEngine.prototype.highlightSquare = function(xpos, ypos) {
-	// highlight the current square
+	// highlight the current square. Start by clearing the old highlights
+	// xpos / ypos are screen coords
+	for(var i in this.highlights) {
+		this.highlights[i].sprite.destroy();
+	}
+	this.highlights = new Array();
+	var pos = this.screenToBoard(xpos, ypos);
+	this.highlights.push(this.pieceFactory(pos.xpos, pos.ypos, HIGHLIGHT_MAIN));
+};
+
+GFXEngine.prototype.screenToBoard = function(xpos, ypos) {
+	// return a position that is the board co-ordinates
+	// you must check co-ords with insideBoard() first
+	var x = Math.floor((xpos - (this.boardx + BORDER_SIZE)) / SQUARE_SIZE);
+	var y = (BOARD_SIZE - 1) - Math.floor((ypos - (this.boardy + BORDER_SIZE)) / SQUARE_SIZE);
+	return(new Position(x, y));
 };
 

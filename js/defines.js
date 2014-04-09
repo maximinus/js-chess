@@ -28,3 +28,8 @@ const HIGHEST_PIECE = BLACK_PAWN
 const IMAGE_NAMES = ['white_king', 'white_queen', 'white_rook', 'white_bishop', 'white_knight', 'white_pawn',
 					 'black_king', 'black_queen', 'black_rook', 'black_bishop', 'black_knight', 'black_pawn']
 
+// names of other gfx images
+const BOARD = 'board';
+const HIGHLIGHT_MAIN = 'highlight_main';
+const HIGHLIGHT_OTHER = 'highlight_other';
+
