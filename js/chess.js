@@ -30,7 +30,18 @@ function create() {
 
 function onClick() {
 	// user has clicked screen. Need to do something?
-	gfx.updateBoard(game.input.x, game.input.y);
+	var x = game.input.x;
+	var y = game.input.y;
+	if(gfx.insideBoard(x, y) == false) {
+		return; }
+	// we clicked, it's on the board. Get co-ords
+	var pos = gfx.screenToBoard(x, y);
+	var piece = engine.board.getIndex(pos);
+	if(piece == EMPTY_SQUARE) {
+		gfx.clearHighlights();
+		return; }
+	// highlight
+	gfx.drawHighlights(pos);
 };
 
 function update() {

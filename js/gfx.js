@@ -7,25 +7,9 @@ ChessPiece = function(xpos, ypos, sprite) {
 	this.sprite = sprite;
 };
 
-ChessPiece.prototype.getScreenX = function() {
-	return(BOARD_XOFFSET + BORDER_SIZE + (this.xpos * SQUARE_SIZE));
-};
-
-ChessPiece.prototype.getScreenY = function() {
-	return(BOARD_XOFFSET + BORDER_SIZE + (this.ypos * SQUARE_SIZE));
-};
-
 GFXEngine = function(game) {
 	// class to handle all website and screen interactions
 	this.game = game;
-};
-
-GFXEngine.prototype.pieceFactory = function(xpos, ypos, image) {
-	var screenx = this.boardx + BORDER_SIZE + (xpos * SQUARE_SIZE);
-	var screeny = (this.boardy + BORDER_SIZE + BOARD_SQUARE_SIZE) -((ypos + 1) * SQUARE_SIZE);
-	console.log(xpos, ypos);
-	var sprite = this.game.add.sprite(screenx, screeny, image);
-	return(new ChessPiece(xpos, ypos, sprite));
 };
 
 GFXEngine.prototype.init = function(width, height) {
@@ -38,6 +22,12 @@ GFXEngine.prototype.init = function(width, height) {
 	// where is the top left of the board?
 	this.boardx = (this.width - BOARD_GFX_SIZE) / 2
 	this.boardy = (this.height - BOARD_GFX_SIZE) / 2
+};
+
+GFXEngine.prototype.pieceFactory = function(xpos, ypos, image) {
+	var pos = this.boardToScreen(xpos, ypos);
+	var sprite = this.game.add.sprite(pos.xpos, pos.ypos, image);
+	return(new ChessPiece(xpos, ypos, sprite));
 };
 
 GFXEngine.prototype.insideBoard = function(xpos, ypos) {
@@ -75,14 +65,16 @@ GFXEngine.prototype.updateBoard = function(xpos, ypos) {
 };
 
 GFXEngine.prototype.highlightSquare = function(xpos, ypos) {
-	// highlight the current square. Start by clearing the old highlights
-	// xpos / ypos are screen coords
+	// xpos / ypos board co-ords
+	var pos = this.boardToScreen(xpos, ypos);
+	this.highlights.push(this.pieceFactory(pos.xpos, pos.ypos, HIGHLIGHT_MAIN));
+};
+
+GFXEngine.prototype.clearHighlights = function() {
 	for(var i in this.highlights) {
 		this.highlights[i].sprite.destroy();
 	}
 	this.highlights = new Array();
-	var pos = this.screenToBoard(xpos, ypos);
-	this.highlights.push(this.pieceFactory(pos.xpos, pos.ypos, HIGHLIGHT_MAIN));
 };
 
 GFXEngine.prototype.screenToBoard = function(xpos, ypos) {
@@ -92,4 +84,11 @@ GFXEngine.prototype.screenToBoard = function(xpos, ypos) {
 	var y = (BOARD_SIZE - 1) - Math.floor((ypos - (this.boardy + BORDER_SIZE)) / SQUARE_SIZE);
 	return(new Position(x, y));
 };
+
+GFXEngine.prototype.boardToScreen = function(xpos, ypos) {
+	var x = this.boardx + BORDER_SIZE + (xpos * SQUARE_SIZE);
+	var y = (this.boardy + BORDER_SIZE + BOARD_SQUARE_SIZE) -((ypos + 1) * SQUARE_SIZE);
+	return(new Position(x, y));
+};
+
 
