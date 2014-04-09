@@ -20,8 +20,8 @@ ChessEngine.prototype.buildMoveTable = function() {
 ChessEngine.prototype.buildKingMoves = function() {
 	// calculate all king moves
 	var move_table = new Array();
-	for(var x=0; x<BOARD_SIZE; x++) {
-		for(var y=0; y<BOARD_SIZE; y++) {
+	for(var y=0; y<BOARD_SIZE; y++) {
+		for(var x=0; x<BOARD_SIZE; x++) {
 			var moves = new Array();
 			// try each move
 			if(onBoard(x + 1, y - 1))	{ moves.push([new Position(x + 1, y - 1)]); }
@@ -56,9 +56,6 @@ ChessEngine.prototype.getMoves = function(piece, position) {
 				possibles.push(moves[i][j]); }
 		}
 	}
-	
-	console.log(possibles);
-	
 	return(possibles);
 };
 
