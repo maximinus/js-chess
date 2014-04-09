@@ -67,3 +67,7 @@ GFXEngine.prototype.updateBoard = function(xpos, ypos) {
 		console.log('Outside!'); }
 };
 
+GFXEngine.prototype.highlightSquare = function(xpos, ypos) {
+	// highlight the current square
+};
+

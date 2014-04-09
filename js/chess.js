@@ -15,6 +15,8 @@ function preload() {
 	for(var i=0; i<IMAGE_NAMES.length; i++) {
 		game.load.image(IMAGE_NAMES[i], 'gfx/' + IMAGE_NAMES[i] + '.png');
 	}
+	game.load.image('hightlight_main', 'gfx/highlight_main.png');
+	game.load.image('hightlight_other', 'gfx/highlight_other.png');
 };
 
 function create() {
