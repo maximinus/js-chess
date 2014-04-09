@@ -56,6 +56,9 @@ ChessEngine.prototype.getMoves = function(piece, position) {
 				possibles.push(moves[i][j]); }
 		}
 	}
+	
+	console.log(possibles);
+	
 	return(possibles);
 };
 

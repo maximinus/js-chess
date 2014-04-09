@@ -4,6 +4,8 @@
 
 initial_start = {
 	"3,0":"white_king",
-	"4,5":"black_king"
+	"4,5":"black_king",
+	"0,0":"white_king",
+	"0,7":"black_king",
 };
 

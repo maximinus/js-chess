@@ -9,6 +9,10 @@ Position.prototype.index = function() {
 	return((this.ypos * BOARD_SIZE) + this.xpos);
 };
 
+Position.prototype.toString = function() {
+	return('Position: x=' + this.xpos.toString() + ', y=' + this.ypos.toString());
+};
+
 ChessBoard = function() {
 	// a board, represented in Javascript as an array
 	this.board = new Array();

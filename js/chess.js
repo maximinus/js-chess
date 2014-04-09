@@ -41,7 +41,7 @@ function onClick() {
 	if(piece == EMPTY_SQUARE) {
 		return; }
 	// highlight
-	gfx.drawHighlights(pos, engine.getMoves(WHITE_KING, new Position(0, 0)));
+	gfx.drawHighlights(pos, engine.getMoves(WHITE_KING, pos));
 };
 
 function update() {
