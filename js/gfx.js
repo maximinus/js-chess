@@ -64,9 +64,8 @@ GFXEngine.prototype.updateBoard = function(xpos, ypos) {
 	}
 };
 
-GFXEngine.prototype.highlightSquare = function(xpos, ypos) {
+GFXEngine.prototype.drawHighlights = function(pos) {
 	// xpos / ypos board co-ords
-	var pos = this.boardToScreen(xpos, ypos);
 	this.highlights.push(this.pieceFactory(pos.xpos, pos.ypos, HIGHLIGHT_MAIN));
 };
 

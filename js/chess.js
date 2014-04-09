@@ -35,10 +35,10 @@ function onClick() {
 	if(gfx.insideBoard(x, y) == false) {
 		return; }
 	// we clicked, it's on the board. Get co-ords
+	gfx.clearHighlights();
 	var pos = gfx.screenToBoard(x, y);
-	var piece = engine.board.getIndex(pos);
+	var piece = engine.board.getSquare(pos);
 	if(piece == EMPTY_SQUARE) {
-		gfx.clearHighlights();
 		return; }
 	// highlight
 	gfx.drawHighlights(pos);
