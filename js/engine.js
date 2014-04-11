@@ -38,6 +38,37 @@ ChessEngine.prototype.buildKingMoves = function() {
 	return(move_table);
 };
 
+ChessEngine.prototype.buildRookMoves = function() {
+	var move_table = new Array();
+	for(var y=0; y<BOARD_SIZE; y++) {
+		for(var x=0; x<BOARD_SIZE; x++) {
+			// cast a line in all directions
+			move_table.push(this.castRay(new Position(x, y), new Position(1, 1)));
+			move_table.push(this.castRay(new Position(x, y), new Position(1, 0)));
+			move_table.push(this.castRay(new Position(x, y), new Position(1, -1)));
+			move_table.push(this.castRay(new Position(x, y), new Position(0, -1)));
+			move_table.push(this.castRay(new Position(x, y), new Position(0, 1)));
+			move_table.push(this.castRay(new Position(x, y), new Position(-1, 1)));
+			move_table.push(this.castRay(new Position(x, y), new Position(-1, 0)));
+			move_table.push(this.castRay(new Position(x, y), new Position(-1, -1)));
+		}
+	}
+};
+
+ChessEngine.prototype.castRay = function(position, cast) {
+	// start from position and add cast offsets to it every time
+	// keep going until out of bounds
+	var ray = new Array();
+	position.xpos += cast.xpos;
+	position.ypos += cast.ypos;
+	while(this.onBoard(position.xpos, position.ypos)) {
+		ray.push(position);
+		position.xpos += cast.xpos;
+		position.ypos += cast.ypos;
+	}
+	return(ray);
+};
+
 ChessEngine.prototype.getMoves = function(piece, position) {
 	var moves = this.moves[piece][position.index()];
 	// is the piece black?
