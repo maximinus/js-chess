@@ -10,8 +10,14 @@ ChessEngine.prototype.buildMoveTable = function() {
 	// build all moves
 	this.moves = new Array(HIGHEST_PIECE + 1);
 	var king_moves = this.buildKingMoves();
+	var rook_moves = this.buildRookMoves();
+	var bishop_moves = this.buildBishopMoves();
 	this.moves[WHITE_KING] = king_moves;
 	this.moves[BLACK_KING] = king_moves;
+	this.moves[WHITE_ROOK] = rook_moves;
+	this.moves[BLACK_ROOK] = rook_moves;
+	this.moves[WHITE_BISHOP] = bishop_moves;
+	this.moves[BLACK_BISHOP] = bishop_moves;
 };
 
 // all moves are an array of rays cast out from the starting point.
@@ -42,17 +48,32 @@ ChessEngine.prototype.buildRookMoves = function() {
 	var move_table = new Array();
 	for(var y=0; y<BOARD_SIZE; y++) {
 		for(var x=0; x<BOARD_SIZE; x++) {
+			var moves = new Array();
 			// cast a line in all directions
-			move_table.push(this.castRay(new Position(x, y), new Position(1, 1)));
-			move_table.push(this.castRay(new Position(x, y), new Position(1, 0)));
-			move_table.push(this.castRay(new Position(x, y), new Position(1, -1)));
-			move_table.push(this.castRay(new Position(x, y), new Position(0, -1)));
-			move_table.push(this.castRay(new Position(x, y), new Position(0, 1)));
-			move_table.push(this.castRay(new Position(x, y), new Position(-1, 1)));
-			move_table.push(this.castRay(new Position(x, y), new Position(-1, 0)));
-			move_table.push(this.castRay(new Position(x, y), new Position(-1, -1)));
+			moves.push(this.castRay(new Position(x, y), new Position(1, 0)));
+			moves.push(this.castRay(new Position(x, y), new Position(0, -1)));
+			moves.push(this.castRay(new Position(x, y), new Position(0, 1)));
+			moves.push(this.castRay(new Position(x, y), new Position(-1, 0)));
+			move_table.push(moves);
 		}
 	}
+	return(move_table);
+};
+
+ChessEngine.prototype.buildBishopMoves = function() {
+	var move_table = new Array();
+	for(var y=0; y<BOARD_SIZE; y++) {
+		for(var x=0; x<BOARD_SIZE; x++) {
+			var moves = new Array();
+			// cast a line in all directions
+			moves.push(this.castRay(new Position(x, y), new Position(1, 1)));
+			moves.push(this.castRay(new Position(x, y), new Position(1, -1)));
+			moves.push(this.castRay(new Position(x, y), new Position(-1, 1)));
+			moves.push(this.castRay(new Position(x, y), new Position(-1, -1)));
+			move_table.push(moves);
+		}
+	}
+	return(move_table);
 };
 
 ChessEngine.prototype.castRay = function(position, cast) {
@@ -61,8 +82,8 @@ ChessEngine.prototype.castRay = function(position, cast) {
 	var ray = new Array();
 	position.xpos += cast.xpos;
 	position.ypos += cast.ypos;
-	while(this.onBoard(position.xpos, position.ypos)) {
-		ray.push(position);
+	while(onBoard(position.xpos, position.ypos)) {
+		ray.push(new Position(position.xpos, position.ypos));
 		position.xpos += cast.xpos;
 		position.ypos += cast.ypos;
 	}
@@ -78,7 +99,9 @@ ChessEngine.prototype.getMoves = function(piece, position) {
 		var colour = new Function('piece', 'return(piece > WHITE_MAX);'); }
 	// loop through all moves and all rays
 	var possibles = new Array();
+	// for all rays
 	for(var i in moves) {
+		// for each move in the ray...
 		for(var j in moves[i]) {
 			var piece = this.board.getSquare(moves[i][j])
 			if((piece != EMPTY_SQUARE) && (colour(piece))) {
