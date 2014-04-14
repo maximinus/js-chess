@@ -4,9 +4,11 @@
 
 initial_start = {
 	"0,0":"white_rook",
+	"1,0":"white_knight",
 	"3,0":"white_king",
 	"4,0":"white_queen",
 	"5,0":"white_bishop",
+	"3,3":"white_knight",
 	"4,5":"black_king",
 };
 

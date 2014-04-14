@@ -13,6 +13,7 @@ ChessEngine.prototype.buildMoveTable = function() {
 	var queen_moves = this.buildQueenMoves();
 	var rook_moves = this.buildRookMoves();
 	var bishop_moves = this.buildBishopMoves();
+	var knight_moves = this.buildKnightMoves();
 	this.moves[WHITE_KING] = king_moves;
 	this.moves[BLACK_KING] = king_moves;
 	this.moves[WHITE_QUEEN] = queen_moves;
@@ -21,6 +22,8 @@ ChessEngine.prototype.buildMoveTable = function() {
 	this.moves[BLACK_ROOK] = rook_moves;
 	this.moves[WHITE_BISHOP] = bishop_moves;
 	this.moves[BLACK_BISHOP] = bishop_moves;
+	this.moves[WHITE_KNIGHT] = knight_moves;
+	this.moves[BLACK_KNIGHT] = knight_moves;
 };
 
 // all moves are an array of rays cast out from the starting point.
@@ -92,6 +95,25 @@ ChessEngine.prototype.buildBishopMoves = function() {
 			moves.push(this.castRay(new Position(x, y), new Position(1, -1)));
 			moves.push(this.castRay(new Position(x, y), new Position(-1, 1)));
 			moves.push(this.castRay(new Position(x, y), new Position(-1, -1)));
+			move_table.push(moves);
+		}
+	}
+	return(move_table);
+};
+
+ChessEngine.prototype.buildKnightMoves = function() {
+	var move_table = new Array();
+	for(var y=0; y<BOARD_SIZE; y++) {
+		for(var x=0; x<BOARD_SIZE; x++) {
+			var moves = new Array();
+			if(onBoard(x + 1, y + 2))	{ moves.push([new Position(x + 1, y + 2)]); }
+			if(onBoard(x + 2, y + 1))	{ moves.push([new Position(x + 2, y + 1)]); }
+			if(onBoard(x + 2, y - 1))	{ moves.push([new Position(x + 2, y - 1)]); }
+			if(onBoard(x + 1, y - 2))	{ moves.push([new Position(x + 1, y - 2)]); }
+			if(onBoard(x - 1, y - 2))	{ moves.push([new Position(x - 1, y - 2)]); }
+			if(onBoard(x - 2, y - 1))	{ moves.push([new Position(x - 2, y - 1)]); }
+			if(onBoard(x - 2, y + 1))	{ moves.push([new Position(x - 2, y + 1)]); }
+			if(onBoard(x - 1, y + 2))	{ moves.push([new Position(x - 1, y + 2)]); }
 			move_table.push(moves);
 		}
 	}
