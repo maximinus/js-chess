@@ -92,20 +92,19 @@ ChessEngine.prototype.castRay = function(position, cast) {
 
 ChessEngine.prototype.getMoves = function(piece, position) {
 	var moves = this.moves[piece][position.index()];
-	// is the piece black?
-	if(piece > WHITE_MAX) { // it's black
-		var colour = new Function('piece', 'return(piece <= WHITE_MAX);'); }
-	else { // white
-		var colour = new Function('piece', 'return(piece > WHITE_MAX);'); }
 	// loop through all moves and all rays
 	var possibles = new Array();
 	// for all rays
 	for(var i in moves) {
 		// for each move in the ray...
 		for(var j in moves[i]) {
-			var piece = this.board.getSquare(moves[i][j])
-			if((piece != EMPTY_SQUARE) && (colour(piece))) {
-				break; }
+			var square = this.board.getSquare(moves[i][j])
+			if((square != EMPTY_SQUARE)) {
+				if(differentColour(piece, square)) {
+					possibles.push(moves[i][j]);
+				}
+				break;
+			}
 			else {
 				possibles.push(moves[i][j]); }
 		}
@@ -118,5 +117,9 @@ function onBoard(x, y) {
 	if((x<0) || (x>=BOARD_SIZE) || (y<0) || (y>=BOARD_SIZE)) {
 		return(false); }
 	return(true);
+};
+
+function differentColour(p1, p2) {
+	return((p1 <= WHITE_MAX) && (p2 > WHITE_MAX));
 };
 
