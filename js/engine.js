@@ -24,6 +24,8 @@ ChessEngine.prototype.buildMoveTable = function() {
 	this.moves[BLACK_BISHOP] = bishop_moves;
 	this.moves[WHITE_KNIGHT] = knight_moves;
 	this.moves[BLACK_KNIGHT] = knight_moves;
+	this.moves[WHITE_PAWN] = this.buildWhitePawnMoves();
+	this.moves[BLACK_PAWN] = this.buildBlackPawnMoves();
 };
 
 // all moves are an array of rays cast out from the starting point.
@@ -120,6 +122,41 @@ ChessEngine.prototype.buildKnightMoves = function() {
 	return(move_table);
 };
 
+ChessEngine.prototype.buildWhitePawnMoves = function() {
+	// just the basic moves, not including capture
+	// rows 1 to 6 just move forward
+	var move_table = new Array();
+	for(var x=0; x<BOARD_SIZE; x++) {
+		move_table.push([]); }
+	for(var x=0; x<BOARD_SIZE; x++) {
+		move_table.push([[new Position(x, 2), new Position(x, 3)]]);
+	}
+	for(var y=2; y<(BOARD_SIZE-1); y++) {
+		for(var x=0; x<BOARD_SIZE; x++) {
+			move_table.push([[new Position(x, y + 1)]]);
+		}
+	}
+	for(var x=0; x<BOARD_SIZE; x++) {
+		move_table.push([]); }
+	return(move_table);
+};
+
+ChessEngine.prototype.buildBlackPawnMoves = function() {
+	var move_table = new Array();
+	for(var x=0; x<BOARD_SIZE; x++) {
+		move_table.push([]); }
+	for(var y=1; y<(BOARD_SIZE-2); y++) {
+		for(var x=0; x<BOARD_SIZE; x++) {
+			move_table.push([[new Position(x, y - 1)]]);
+		}
+	}
+	for(var x=0; x<BOARD_SIZE; x++) {
+		move_table.push([[new Position(x, 6), new Position(x, 5)]]); }
+	for(var x=0; x<BOARD_SIZE; x++) {
+		move_table.push([]); }
+	return(move_table);
+}
+
 ChessEngine.prototype.castRay = function(position, cast) {
 	// start from position and add cast offsets to it every time
 	// keep going until out of bounds
@@ -138,7 +175,7 @@ ChessEngine.prototype.getMoves = function(piece, position) {
 	var moves = this.moves[piece][position.index()];
 	// loop through all moves and all rays
 	var possibles = new Array();
-	// for all rays
+	// for all rays	
 	for(var i in moves) {
 		// for each move in the ray...
 		for(var j in moves[i]) {
