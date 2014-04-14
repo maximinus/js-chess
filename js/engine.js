@@ -10,10 +10,13 @@ ChessEngine.prototype.buildMoveTable = function() {
 	// build all moves
 	this.moves = new Array(HIGHEST_PIECE + 1);
 	var king_moves = this.buildKingMoves();
+	var queen_moves = this.buildQueenMoves();
 	var rook_moves = this.buildRookMoves();
 	var bishop_moves = this.buildBishopMoves();
 	this.moves[WHITE_KING] = king_moves;
 	this.moves[BLACK_KING] = king_moves;
+	this.moves[WHITE_QUEEN] = queen_moves;
+	this.moves[BLACK_QUEEN] = queen_moves;
 	this.moves[WHITE_ROOK] = rook_moves;
 	this.moves[BLACK_ROOK] = rook_moves;
 	this.moves[WHITE_BISHOP] = bishop_moves;
@@ -58,6 +61,25 @@ ChessEngine.prototype.buildRookMoves = function() {
 		}
 	}
 	return(move_table);
+};
+
+ChessEngine.prototype.buildQueenMoves = function() {
+	// we just join the rook and bishop moves
+	var bishop_moves = this.buildBishopMoves();
+	var rook_moves = this.buildRookMoves();
+	var queen_moves = new Array();
+	for(var i=0; i<(BOARD_SIZE * BOARD_SIZE); i++) {
+		square_moves = new Array();
+		// iterate over all rays in bishop + rooks
+		for(var j in bishop_moves[i]) {
+			square_moves.push(bishop_moves[i][j]);
+		}
+		for(var j in rook_moves[i]) {
+			square_moves.push(rook_moves[i][j]);
+		};
+		queen_moves.push(square_moves);
+	};
+	return(queen_moves);
 };
 
 ChessEngine.prototype.buildBishopMoves = function() {
