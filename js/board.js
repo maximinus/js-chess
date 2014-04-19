@@ -1,6 +1,6 @@
 // Classes for handling the board
 
-Position = function(xpos, ypos) {
+function Position(xpos, ypos) {
 	this.xpos = xpos;
 	this.ypos = ypos;
 };
@@ -13,16 +13,16 @@ Position.prototype.toString = function() {
 	return('Position: x=' + this.xpos.toString() + ', y=' + this.ypos.toString());
 };
 
-ChessBoard = function() {
+function ChessBoard() {
 	// a board, represented in Javascript as an array
 	this.board = new Array();
 	for(var i=0; i<(BOARD_SIZE * BOARD_SIZE); i++) {
 		this.board.push(EMPTY_SQUARE);
 	}
-	this.setupBoard(initial_start);
+	this._setupBoard(initial_start);
 };
 
-ChessBoard.prototype.setupBoard = function(pieces) {
+ChessBoard.prototype._setupBoard = function(pieces) {
 	// (0, 0) is the bottom left
 	// data passed is sourced from JSON, or the 'start' variable
 	// it is a ditionary, so we parse through it:

@@ -1,5 +1,4 @@
 // basic start of chess game
-
 var width = window.innerWidth * window.devicePixelRatio;
 var height = window.innerHeight * window.devicePixelRatio;
 var game = new Phaser.Game(width, height, Phaser.AUTO, '',

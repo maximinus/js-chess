@@ -1,6 +1,6 @@
 // class to handle solving a game of chess
-
-ChessEngine = function() {
+"use strict"
+function ChessEngine() {
 	// class to handle playing a game of chess
 	this.board = new ChessBoard();
 	this.buildMoveTable();
@@ -9,21 +9,16 @@ ChessEngine = function() {
 ChessEngine.prototype.buildMoveTable = function() {
 	// build all moves
 	this.moves = new Array(HIGHEST_PIECE + 1);
-	var king_moves = this.buildKingMoves();
-	var queen_moves = this.buildQueenMoves();
-	var rook_moves = this.buildRookMoves();
-	var bishop_moves = this.buildBishopMoves();
-	var knight_moves = this.buildKnightMoves();
-	this.moves[WHITE_KING] = king_moves;
-	this.moves[BLACK_KING] = king_moves;
-	this.moves[WHITE_QUEEN] = queen_moves;
-	this.moves[BLACK_QUEEN] = queen_moves;
-	this.moves[WHITE_ROOK] = rook_moves;
-	this.moves[BLACK_ROOK] = rook_moves;
-	this.moves[WHITE_BISHOP] = bishop_moves;
-	this.moves[BLACK_BISHOP] = bishop_moves;
-	this.moves[WHITE_KNIGHT] = knight_moves;
-	this.moves[BLACK_KNIGHT] = knight_moves;
+	this.moves[WHITE_KING] = this.buildKingMoves();
+	this.moves[BLACK_KING] = this.buildKingMoves();
+	this.moves[WHITE_QUEEN] = this.buildQueenMoves();
+	this.moves[BLACK_QUEEN] = this.buildQueenMoves();
+	this.moves[WHITE_ROOK] = this.buildRookMoves();
+	this.moves[BLACK_ROOK] = this.buildRookMoves();
+	this.moves[WHITE_BISHOP] = this.buildBishopMoves();
+	this.moves[BLACK_BISHOP] = this.buildBishopMoves();
+	this.moves[WHITE_KNIGHT] = this.buildKnightMoves();
+	this.moves[BLACK_KNIGHT] = this.buildKnightMoves();
 	this.moves[WHITE_PAWN] = this.buildWhitePawnMoves();
 	this.moves[BLACK_PAWN] = this.buildBlackPawnMoves();
 };
@@ -38,14 +33,14 @@ ChessEngine.prototype.buildKingMoves = function() {
 		for(var x=0; x<BOARD_SIZE; x++) {
 			var moves = new Array();
 			// try each move
-			if(onBoard(x + 1, y - 1))	{ moves.push([new Position(x + 1, y - 1)]); }
-			if(onBoard(x + 1, y))		{ moves.push([new Position(x + 1, y)]); }
-			if(onBoard(x + 1, y + 1))	{ moves.push([new Position(x + 1, y + 1)]); }
-			if(onBoard(x, y - 1))		{ moves.push([new Position(x, y - 1)]); }
-			if(onBoard(x, y + 1))		{ moves.push([new Position(x, y + 1)]); }
-			if(onBoard(x - 1, y - 1))	{ moves.push([new Position(x - 1, y - 1)]); }
-			if(onBoard(x - 1, y))		{ moves.push([new Position(x - 1, y)]); }
-			if(onBoard(x - 1, y + 1))	{ moves.push([new Position(x - 1, y + 1)]); }
+			if(ChessEngine._onBoard(x + 1, y - 1))	{ moves.push([new Position(x + 1, y - 1)]); }
+			if(ChessEngine._onBoard(x + 1, y))		{ moves.push([new Position(x + 1, y)]); }
+			if(ChessEngine._onBoard(x + 1, y + 1))	{ moves.push([new Position(x + 1, y + 1)]); }
+			if(ChessEngine._onBoard(x, y - 1))		{ moves.push([new Position(x, y - 1)]); }
+			if(ChessEngine._onBoard(x, y + 1))		{ moves.push([new Position(x, y + 1)]); }
+			if(ChessEngine._onBoard(x - 1, y - 1))	{ moves.push([new Position(x - 1, y - 1)]); }
+			if(ChessEngine._onBoard(x - 1, y))		{ moves.push([new Position(x - 1, y)]); }
+			if(ChessEngine._onBoard(x - 1, y + 1))	{ moves.push([new Position(x - 1, y + 1)]); }
 			move_table.push(moves);
 		}
 	}
@@ -74,7 +69,7 @@ ChessEngine.prototype.buildQueenMoves = function() {
 	var rook_moves = this.buildRookMoves();
 	var queen_moves = new Array();
 	for(var i=0; i<(BOARD_SIZE * BOARD_SIZE); i++) {
-		square_moves = new Array();
+		var square_moves = new Array();
 		// iterate over all rays in bishop + rooks
 		for(var j in bishop_moves[i]) {
 			square_moves.push(bishop_moves[i][j]);
@@ -108,14 +103,14 @@ ChessEngine.prototype.buildKnightMoves = function() {
 	for(var y=0; y<BOARD_SIZE; y++) {
 		for(var x=0; x<BOARD_SIZE; x++) {
 			var moves = new Array();
-			if(onBoard(x + 1, y + 2))	{ moves.push([new Position(x + 1, y + 2)]); }
-			if(onBoard(x + 2, y + 1))	{ moves.push([new Position(x + 2, y + 1)]); }
-			if(onBoard(x + 2, y - 1))	{ moves.push([new Position(x + 2, y - 1)]); }
-			if(onBoard(x + 1, y - 2))	{ moves.push([new Position(x + 1, y - 2)]); }
-			if(onBoard(x - 1, y - 2))	{ moves.push([new Position(x - 1, y - 2)]); }
-			if(onBoard(x - 2, y - 1))	{ moves.push([new Position(x - 2, y - 1)]); }
-			if(onBoard(x - 2, y + 1))	{ moves.push([new Position(x - 2, y + 1)]); }
-			if(onBoard(x - 1, y + 2))	{ moves.push([new Position(x - 1, y + 2)]); }
+			if(ChessEngine._onBoard(x + 1, y + 2))	{ moves.push([new Position(x + 1, y + 2)]); }
+			if(ChessEngine._onBoard(x + 2, y + 1))	{ moves.push([new Position(x + 2, y + 1)]); }
+			if(ChessEngine._onBoard(x + 2, y - 1))	{ moves.push([new Position(x + 2, y - 1)]); }
+			if(ChessEngine._onBoard(x + 1, y - 2))	{ moves.push([new Position(x + 1, y - 2)]); }
+			if(ChessEngine._onBoard(x - 1, y - 2))	{ moves.push([new Position(x - 1, y - 2)]); }
+			if(ChessEngine._onBoard(x - 2, y - 1))	{ moves.push([new Position(x - 2, y - 1)]); }
+			if(ChessEngine._onBoard(x - 2, y + 1))	{ moves.push([new Position(x - 2, y + 1)]); }
+			if(ChessEngine._onBoard(x - 1, y + 2))	{ moves.push([new Position(x - 1, y + 2)]); }
 			move_table.push(moves);
 		}
 	}
@@ -163,7 +158,7 @@ ChessEngine.prototype.castRay = function(position, cast) {
 	var ray = new Array();
 	position.xpos += cast.xpos;
 	position.ypos += cast.ypos;
-	while(onBoard(position.xpos, position.ypos)) {
+	while(ChessEngine._onBoard(position.xpos, position.ypos)) {
 		ray.push(new Position(position.xpos, position.ypos));
 		position.xpos += cast.xpos;
 		position.ypos += cast.ypos;
@@ -181,7 +176,7 @@ ChessEngine.prototype.getMoves = function(piece, position) {
 		for(var j in moves[i]) {
 			var square = this.board.getSquare(moves[i][j])
 			if((square != EMPTY_SQUARE)) {
-				if(differentColour(piece, square)) {
+				if(ChessEngine._differentColour(piece, square)) {
 					possibles.push(moves[i][j]);
 				}
 				break;
@@ -194,13 +189,13 @@ ChessEngine.prototype.getMoves = function(piece, position) {
 };
 
 // helper functions
-function onBoard(x, y) {
+ChessEngine._onBoard = function (x, y) {
 	if((x<0) || (x>=BOARD_SIZE) || (y<0) || (y>=BOARD_SIZE)) {
 		return(false); }
 	return(true);
 };
 
-function differentColour(p1, p2) {
+ChessEngine._differentColour = function (p1, p2) {
 	return((p1 <= WHITE_MAX) && (p2 > WHITE_MAX));
 };
 
