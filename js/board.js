@@ -13,6 +13,24 @@ Position.prototype.toString = function() {
 	return('Position: x=' + this.xpos.toString() + ', y=' + this.ypos.toString());
 };
 
+function Direction(xpos, ypos) {
+	this.xpos = xpos;
+	this.ypos = ypos;
+}
+
+Direction.prototype = Object.create(Position.prototype);
+
+//Define direction constants
+Direction.UP = new Direction(1, 0);
+Direction.LEFT = new Direction(0, -1);
+Direction.RIGHT = new Direction(0, 1);
+Direction.DOWN = new Direction(0, -1);
+Direction.UPPER_RIGHT = new Direction(1, 1);
+Direction.BOTTOM_RIGHT = new Direction(1, -1);
+Direction.UPPER_LEFT = new Direction(-1, 1);
+Direction.BOTTOM_LEFT = new Direction(-1, -1);
+
+
 function ChessBoard() {
 	// a board, represented in Javascript as an array
 	this.board = new Array();

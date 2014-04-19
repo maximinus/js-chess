@@ -53,10 +53,10 @@ ChessEngine.prototype.buildRookMoves = function() {
 		for(var x=0; x<BOARD_SIZE; x++) {
 			var moves = new Array();
 			// cast a line in all directions
-			moves.push(this.castRay(new Position(x, y), new Position(1, 0)));
-			moves.push(this.castRay(new Position(x, y), new Position(0, -1)));
-			moves.push(this.castRay(new Position(x, y), new Position(0, 1)));
-			moves.push(this.castRay(new Position(x, y), new Position(-1, 0)));
+			moves.push(this._castRay(new Position(x, y), Direction.UP));
+			moves.push(this._castRay(new Position(x, y), Direction.LEFT));
+			moves.push(this._castRay(new Position(x, y), Direction.RIGHT));
+			moves.push(this._castRay(new Position(x, y), Direction.DOWN));
 			move_table.push(moves);
 		}
 	}
@@ -88,10 +88,10 @@ ChessEngine.prototype.buildBishopMoves = function() {
 		for(var x=0; x<BOARD_SIZE; x++) {
 			var moves = new Array();
 			// cast a line in all directions
-			moves.push(this.castRay(new Position(x, y), new Position(1, 1)));
-			moves.push(this.castRay(new Position(x, y), new Position(1, -1)));
-			moves.push(this.castRay(new Position(x, y), new Position(-1, 1)));
-			moves.push(this.castRay(new Position(x, y), new Position(-1, -1)));
+			moves.push(this._castRay(new Position(x, y), Direction.UPPER_RIGHT));
+			moves.push(this._castRay(new Position(x, y), Direction.BOTTOM_RIGHT));
+			moves.push(this._castRay(new Position(x, y), Direction.UPPER_LEFT));
+			moves.push(this._castRay(new Position(x, y), Direction.BOTTOM_LEFT));
 			move_table.push(moves);
 		}
 	}
@@ -152,16 +152,16 @@ ChessEngine.prototype.buildBlackPawnMoves = function() {
 	return(move_table);
 }
 
-ChessEngine.prototype.castRay = function(position, cast) {
+ChessEngine.prototype._castRay = function(position, direction) {
 	// start from position and add cast offsets to it every time
 	// keep going until out of bounds
 	var ray = new Array();
-	position.xpos += cast.xpos;
-	position.ypos += cast.ypos;
+	position.xpos += direction.xpos;
+	position.ypos += direction.ypos;
 	while(ChessEngine._onBoard(position.xpos, position.ypos)) {
 		ray.push(new Position(position.xpos, position.ypos));
-		position.xpos += cast.xpos;
-		position.ypos += cast.ypos;
+		position.xpos += direction.xpos;
+		position.ypos += direction.ypos;
 	}
 	return(ray);
 };
