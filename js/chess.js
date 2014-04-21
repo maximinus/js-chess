@@ -1,8 +1,7 @@
 // basic start of chess game
 var width = window.innerWidth * window.devicePixelRatio;
 var height = window.innerHeight * window.devicePixelRatio;
-var game = new Phaser.Game(width, height, Phaser.AUTO, '',
-						   { preload: preload, create: create, update: update });
+var game = new Phaser.Game(width, height, Phaser.AUTO, '', { preload: preload, create: create, update: update });
 
 // we pollute the global namespace twice
 var engine = new ChessEngine();

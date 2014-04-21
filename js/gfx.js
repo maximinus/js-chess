@@ -24,7 +24,7 @@ GFXEngine.prototype.init = function(width, height) {
 	this.boardy = (this.height - BOARD_GFX_SIZE) / 2
 };
 
-GFXEngine.prototype._pieceFactory = function(xpos, ypos, image) {
+GFXEngine.prototype.pieceFactory = function(xpos, ypos, image) {
 	var pos = this.boardToScreen(xpos, ypos);
 	var sprite = this.game.add.sprite(pos.xpos, pos.ypos, image);
 	return(new ChessPiece(xpos, ypos, sprite));
@@ -51,7 +51,7 @@ GFXEngine.prototype.drawBoard = function(board) {
 			var position = new Position(x, y);
 			var piece = board.getSquare(position);
 			if(piece != EMPTY_SQUARE) {
-				this.pieces.push(this._pieceFactory(x, y, IMAGE_NAMES[piece]));
+				this.pieces.push(this.pieceFactory(x, y, IMAGE_NAMES[piece]));
 			}
 		}
 	}
@@ -66,10 +66,10 @@ GFXEngine.prototype.updateBoard = function(xpos, ypos) {
 
 GFXEngine.prototype.drawHighlights = function(pos, moves) {
 	// xpos / ypos board co-ords
-	this.highlights.push(this._pieceFactory(pos.xpos, pos.ypos, HIGHLIGHT_MAIN));
+	this.highlights.push(this.pieceFactory(pos.xpos, pos.ypos, HIGHLIGHT_MAIN));
 	// do the same with the possible moves
 	for(var i in moves) {
-		this.highlights.push(this._pieceFactory(moves[i].xpos, moves[i].ypos, HIGHLIGHT_OTHER));
+		this.highlights.push(this.pieceFactory(moves[i].xpos, moves[i].ypos, HIGHLIGHT_OTHER));
 	}
 };
 
@@ -93,5 +93,4 @@ GFXEngine.prototype.boardToScreen = function(xpos, ypos) {
 	var y = (this.boardy + BORDER_SIZE + BOARD_SQUARE_SIZE) -((ypos + 1) * SQUARE_SIZE);
 	return(new Position(x, y));
 };
-
 

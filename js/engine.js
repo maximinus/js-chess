@@ -33,14 +33,14 @@ ChessEngine.prototype.buildKingMoves = function() {
 		for(var x=0; x<BOARD_SIZE; x++) {
 			var moves = new Array();
 			// try each move
-			if(onBoard(x + 1, y - 1))	{ moves.push([new Direction(x + 1, y - 1)]); }
-			if(onBoard(x + 1, y))		{ moves.push([new Direction(x + 1, y)]); }
-			if(onBoard(x + 1, y + 1))	{ moves.push([new Direction(x + 1, y + 1)]); }
-			if(onBoard(x, y - 1))		{ moves.push([new Direction(x, y - 1)]); }
-			if(onBoard(x, y + 1))		{ moves.push([new Direction(x, y + 1)]); }
-			if(onBoard(x - 1, y - 1))	{ moves.push([new Direction(x - 1, y - 1)]); }
-			if(onBoard(x - 1, y))		{ moves.push([new Direction(x - 1, y)]); }
-			if(onBoard(x - 1, y + 1))	{ moves.push([new Direction(x - 1, y + 1)]); }
+			if(onBoard(x + 1, y - 1))	{ moves.push([new Position(x + 1, y - 1)]); }
+			if(onBoard(x + 1, y))		{ moves.push([new Position(x + 1, y)]); }
+			if(onBoard(x + 1, y + 1))	{ moves.push([new Position(x + 1, y + 1)]); }
+			if(onBoard(x, y - 1))		{ moves.push([new Position(x, y - 1)]); }
+			if(onBoard(x, y + 1))		{ moves.push([new Position(x, y + 1)]); }
+			if(onBoard(x - 1, y - 1))	{ moves.push([new Position(x - 1, y - 1)]); }
+			if(onBoard(x - 1, y))		{ moves.push([new Position(x - 1, y)]); }
+			if(onBoard(x - 1, y + 1))	{ moves.push([new Position(x - 1, y + 1)]); }
 			move_table.push(moves);
 		}
 	}
@@ -103,14 +103,14 @@ ChessEngine.prototype.buildKnightMoves = function() {
 	for(var y=0; y<BOARD_SIZE; y++) {
 		for(var x=0; x<BOARD_SIZE; x++) {
 			var moves = new Array();
-			if(onBoard(x + 1, y + 2))	{ moves.push([new Direction(x + 1, y + 2)]); }
-			if(onBoard(x + 2, y + 1))	{ moves.push([new Direction(x + 2, y + 1)]); }
-			if(onBoard(x + 2, y - 1))	{ moves.push([new Direction(x + 2, y - 1)]); }
-			if(onBoard(x + 1, y - 2))	{ moves.push([new Direction(x + 1, y - 2)]); }
-			if(onBoard(x - 1, y - 2))	{ moves.push([new Direction(x - 1, y - 2)]); }
-			if(onBoard(x - 2, y - 1))	{ moves.push([new Direction(x - 2, y - 1)]); }
-			if(onBoard(x - 2, y + 1))	{ moves.push([new Direction(x - 2, y + 1)]); }
-			if(onBoard(x - 1, y + 2))	{ moves.push([new Direction(x - 1, y + 2)]); }
+			if(onBoard(x + 1, y + 2))	{ moves.push([new Position(x + 1, y + 2)]); }
+			if(onBoard(x + 2, y + 1))	{ moves.push([new Position(x + 2, y + 1)]); }
+			if(onBoard(x + 2, y - 1))	{ moves.push([new Position(x + 2, y - 1)]); }
+			if(onBoard(x + 1, y - 2))	{ moves.push([new Position(x + 1, y - 2)]); }
+			if(onBoard(x - 1, y - 2))	{ moves.push([new Position(x - 1, y - 2)]); }
+			if(onBoard(x - 2, y - 1))	{ moves.push([new Position(x - 2, y - 1)]); }
+			if(onBoard(x - 2, y + 1))	{ moves.push([new Position(x - 2, y + 1)]); }
+			if(onBoard(x - 1, y + 2))	{ moves.push([new Position(x - 1, y + 2)]); }
 			move_table.push(moves);
 		}
 	}
