@@ -35,18 +35,14 @@ function onClick() {
 	// we clicked, it's on the board. Get co-ords
 	var pos = gfx.screenToBoard(x, y);
 	var piece = engine.board.getSquare(pos);
-	if(piece == EMPTY_SQUARE) {
-		gfx.clearHighlights();
-		return; }
-	// highlight
-	// either we clicked a move, or a new piece. Decide
-	var check = gfx.checkMove(pos)
-
-	console.log(check);
-
+	// check possible moves
 	gfx.clearHighlights();
-	if(gfx.checkMove(check) == false) {
-		gfx.drawHighlights(pos, engine.getMoves(piece, pos)); }
+	if(gfx.checkMove(pos)) {
+		// TODO: update board
+		return; }
+	if(piece == EMPTY_SQUARE) {
+		return; }
+	gfx.drawHighlights(pos, engine.getMoves(piece, pos));
 };
 
 function update() {
