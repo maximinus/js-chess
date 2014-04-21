@@ -33,14 +33,14 @@ ChessEngine.prototype.buildKingMoves = function() {
 		for(var x=0; x<BOARD_SIZE; x++) {
 			var moves = new Array();
 			// try each move
-			if(onBoard(x + 1, y - 1))	{ moves.push([new Position(x + 1, y - 1)]); }
-			if(onBoard(x + 1, y))		{ moves.push([new Position(x + 1, y)]); }
-			if(onBoard(x + 1, y + 1))	{ moves.push([new Position(x + 1, y + 1)]); }
-			if(onBoard(x, y - 1))		{ moves.push([new Position(x, y - 1)]); }
-			if(onBoard(x, y + 1))		{ moves.push([new Position(x, y + 1)]); }
-			if(onBoard(x - 1, y - 1))	{ moves.push([new Position(x - 1, y - 1)]); }
-			if(onBoard(x - 1, y))		{ moves.push([new Position(x - 1, y)]); }
-			if(onBoard(x - 1, y + 1))	{ moves.push([new Position(x - 1, y + 1)]); }
+			if(onBoard(x + 1, y - 1))	{ moves.push([new Direction(x + 1, y - 1)]); }
+			if(onBoard(x + 1, y))		{ moves.push([new Direction(x + 1, y)]); }
+			if(onBoard(x + 1, y + 1))	{ moves.push([new Direction(x + 1, y + 1)]); }
+			if(onBoard(x, y - 1))		{ moves.push([new Direction(x, y - 1)]); }
+			if(onBoard(x, y + 1))		{ moves.push([new Direction(x, y + 1)]); }
+			if(onBoard(x - 1, y - 1))	{ moves.push([new Direction(x - 1, y - 1)]); }
+			if(onBoard(x - 1, y))		{ moves.push([new Direction(x - 1, y)]); }
+			if(onBoard(x - 1, y + 1))	{ moves.push([new Direction(x - 1, y + 1)]); }
 			move_table.push(moves);
 		}
 	}
@@ -53,10 +53,10 @@ ChessEngine.prototype.buildRookMoves = function() {
 		for(var x=0; x<BOARD_SIZE; x++) {
 			var moves = new Array();
 			// cast a line in all directions
-			moves.push(this._castRay(new Position(x, y), Direction.UP));
-			moves.push(this._castRay(new Position(x, y), Direction.LEFT));
-			moves.push(this._castRay(new Position(x, y), Direction.RIGHT));
-			moves.push(this._castRay(new Position(x, y), Direction.DOWN));
+			moves.push(castRay(new Position(x, y), new Direction(0, 1)));
+			moves.push(castRay(new Position(x, y), new Direction(0, -1)));
+			moves.push(castRay(new Position(x, y), new Direction(-1, 0)));
+			moves.push(castRay(new Position(x, y), new Direction(1, 0)));
 			move_table.push(moves);
 		}
 	}
@@ -88,10 +88,10 @@ ChessEngine.prototype.buildBishopMoves = function() {
 		for(var x=0; x<BOARD_SIZE; x++) {
 			var moves = new Array();
 			// cast a line in all directions
-			moves.push(this._castRay(new Position(x, y), Direction.UPPER_RIGHT));
-			moves.push(this._castRay(new Position(x, y), Direction.BOTTOM_RIGHT));
-			moves.push(this._castRay(new Position(x, y), Direction.UPPER_LEFT));
-			moves.push(this._castRay(new Position(x, y), Direction.BOTTOM_LEFT));
+			moves.push(castRay(new Position(x, y), new Direction(1, 1)));
+			moves.push(castRay(new Position(x, y), new Direction(1, -1)));
+			moves.push(castRay(new Position(x, y), new Direction(-1, -1)));
+			moves.push(castRay(new Position(x, y), new Direction(-1, 1)));
 			move_table.push(moves);
 		}
 	}
@@ -103,14 +103,14 @@ ChessEngine.prototype.buildKnightMoves = function() {
 	for(var y=0; y<BOARD_SIZE; y++) {
 		for(var x=0; x<BOARD_SIZE; x++) {
 			var moves = new Array();
-			if(ChessEngine._onBoard(x + 1, y + 2))	{ moves.push([new Position(x + 1, y + 2)]); }
-			if(ChessEngine._onBoard(x + 2, y + 1))	{ moves.push([new Position(x + 2, y + 1)]); }
-			if(ChessEngine._onBoard(x + 2, y - 1))	{ moves.push([new Position(x + 2, y - 1)]); }
-			if(ChessEngine._onBoard(x + 1, y - 2))	{ moves.push([new Position(x + 1, y - 2)]); }
-			if(ChessEngine._onBoard(x - 1, y - 2))	{ moves.push([new Position(x - 1, y - 2)]); }
-			if(ChessEngine._onBoard(x - 2, y - 1))	{ moves.push([new Position(x - 2, y - 1)]); }
-			if(ChessEngine._onBoard(x - 2, y + 1))	{ moves.push([new Position(x - 2, y + 1)]); }
-			if(ChessEngine._onBoard(x - 1, y + 2))	{ moves.push([new Position(x - 1, y + 2)]); }
+			if(onBoard(x + 1, y + 2))	{ moves.push([new Direction(x + 1, y + 2)]); }
+			if(onBoard(x + 2, y + 1))	{ moves.push([new Direction(x + 2, y + 1)]); }
+			if(onBoard(x + 2, y - 1))	{ moves.push([new Direction(x + 2, y - 1)]); }
+			if(onBoard(x + 1, y - 2))	{ moves.push([new Direction(x + 1, y - 2)]); }
+			if(onBoard(x - 1, y - 2))	{ moves.push([new Direction(x - 1, y - 2)]); }
+			if(onBoard(x - 2, y - 1))	{ moves.push([new Direction(x - 2, y - 1)]); }
+			if(onBoard(x - 2, y + 1))	{ moves.push([new Direction(x - 2, y + 1)]); }
+			if(onBoard(x - 1, y + 2))	{ moves.push([new Direction(x - 1, y + 2)]); }
 			move_table.push(moves);
 		}
 	}
@@ -152,20 +152,6 @@ ChessEngine.prototype.buildBlackPawnMoves = function() {
 	return(move_table);
 }
 
-ChessEngine.prototype._castRay = function(position, direction) {
-	// start from position and add cast offsets to it every time
-	// keep going until out of bounds
-	var ray = new Array();
-	position.xpos += direction.xpos;
-	position.ypos += direction.ypos;
-	while(ChessEngine._onBoard(position.xpos, position.ypos)) {
-		ray.push(new Position(position.xpos, position.ypos));
-		position.xpos += direction.xpos;
-		position.ypos += direction.ypos;
-	}
-	return(ray);
-};
-
 ChessEngine.prototype.getMoves = function(piece, position) {
 	var moves = this.moves[piece][position.index()];
 	// loop through all moves and all rays
@@ -189,13 +175,28 @@ ChessEngine.prototype.getMoves = function(piece, position) {
 };
 
 // helper functions
-onBoard = function (x, y) {
+function onBoard(x, y) {
 	if((x<0) || (x>=BOARD_SIZE) || (y<0) || (y>=BOARD_SIZE)) {
 		return(false); }
 	return(true);
 };
 
-differentColour = function (p1, p2) {
+function differentColour(p1, p2) {
 	return((p1 <= WHITE_MAX) && (p2 > WHITE_MAX));
+};
+
+function castRay(position, direction) {
+	// start from position and add cast offsets to it every time
+	// keep going until out of bounds
+	var ray = new Array();
+
+	position.xpos += direction.xpos;
+	position.ypos += direction.ypos;
+	while(onBoard(position.xpos, position.ypos)) {
+		ray.push(new Position(position.xpos, position.ypos));
+		position.xpos += direction.xpos;
+		position.ypos += direction.ypos;
+	}
+	return(ray);
 };
 

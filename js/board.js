@@ -16,17 +16,7 @@ Position.prototype.toString = function() {
 function Direction(xpos, ypos) {
 	this.xpos = xpos;
 	this.ypos = ypos;
-}
-
-// Define direction constants
-Direction.UP = new Direction(0, 1);
-Direction.LEFT = new Direction(-1, 0);
-Direction.RIGHT = new Direction(1, 0);
-Direction.DOWN = new Direction(0, -1);
-Direction.UP_RIGHT = new Direction(1, 1);
-Direction.DOWN_RIGHT = new Direction(1, -1);
-Direction.UP_LEFT = new Direction(-1, 1);
-Direction.DOWN_LEFT = new Direction(-1, -1);
+};
 
 function ChessBoard() {
 	// a board, represented in Javascript as an array
