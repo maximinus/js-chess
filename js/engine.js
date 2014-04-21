@@ -33,14 +33,14 @@ ChessEngine.prototype.buildKingMoves = function() {
 		for(var x=0; x<BOARD_SIZE; x++) {
 			var moves = new Array();
 			// try each move
-			if(ChessEngine._onBoard(x + 1, y - 1))	{ moves.push([new Position(x + 1, y - 1)]); }
-			if(ChessEngine._onBoard(x + 1, y))		{ moves.push([new Position(x + 1, y)]); }
-			if(ChessEngine._onBoard(x + 1, y + 1))	{ moves.push([new Position(x + 1, y + 1)]); }
-			if(ChessEngine._onBoard(x, y - 1))		{ moves.push([new Position(x, y - 1)]); }
-			if(ChessEngine._onBoard(x, y + 1))		{ moves.push([new Position(x, y + 1)]); }
-			if(ChessEngine._onBoard(x - 1, y - 1))	{ moves.push([new Position(x - 1, y - 1)]); }
-			if(ChessEngine._onBoard(x - 1, y))		{ moves.push([new Position(x - 1, y)]); }
-			if(ChessEngine._onBoard(x - 1, y + 1))	{ moves.push([new Position(x - 1, y + 1)]); }
+			if(onBoard(x + 1, y - 1))	{ moves.push([new Position(x + 1, y - 1)]); }
+			if(onBoard(x + 1, y))		{ moves.push([new Position(x + 1, y)]); }
+			if(onBoard(x + 1, y + 1))	{ moves.push([new Position(x + 1, y + 1)]); }
+			if(onBoard(x, y - 1))		{ moves.push([new Position(x, y - 1)]); }
+			if(onBoard(x, y + 1))		{ moves.push([new Position(x, y + 1)]); }
+			if(onBoard(x - 1, y - 1))	{ moves.push([new Position(x - 1, y - 1)]); }
+			if(onBoard(x - 1, y))		{ moves.push([new Position(x - 1, y)]); }
+			if(onBoard(x - 1, y + 1))	{ moves.push([new Position(x - 1, y + 1)]); }
 			move_table.push(moves);
 		}
 	}
@@ -176,7 +176,7 @@ ChessEngine.prototype.getMoves = function(piece, position) {
 		for(var j in moves[i]) {
 			var square = this.board.getSquare(moves[i][j])
 			if((square != EMPTY_SQUARE)) {
-				if(ChessEngine._differentColour(piece, square)) {
+				if(differentColour(piece, square)) {
 					possibles.push(moves[i][j]);
 				}
 				break;
@@ -189,13 +189,13 @@ ChessEngine.prototype.getMoves = function(piece, position) {
 };
 
 // helper functions
-ChessEngine._onBoard = function (x, y) {
+onBoard = function (x, y) {
 	if((x<0) || (x>=BOARD_SIZE) || (y<0) || (y>=BOARD_SIZE)) {
 		return(false); }
 	return(true);
 };
 
-ChessEngine._differentColour = function (p1, p2) {
+differentColour = function (p1, p2) {
 	return((p1 <= WHITE_MAX) && (p2 > WHITE_MAX));
 };
 

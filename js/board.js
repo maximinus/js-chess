@@ -18,18 +18,15 @@ function Direction(xpos, ypos) {
 	this.ypos = ypos;
 }
 
-Direction.prototype = Object.create(Position.prototype);
-
-//Define direction constants
-Direction.UP = new Direction(1, 0);
-Direction.LEFT = new Direction(0, -1);
-Direction.RIGHT = new Direction(0, 1);
+// Define direction constants
+Direction.UP = new Direction(0, 1);
+Direction.LEFT = new Direction(-1, 0);
+Direction.RIGHT = new Direction(1, 0);
 Direction.DOWN = new Direction(0, -1);
-Direction.UPPER_RIGHT = new Direction(1, 1);
-Direction.BOTTOM_RIGHT = new Direction(1, -1);
-Direction.UPPER_LEFT = new Direction(-1, 1);
-Direction.BOTTOM_LEFT = new Direction(-1, -1);
-
+Direction.UP_RIGHT = new Direction(1, 1);
+Direction.DOWN_RIGHT = new Direction(1, -1);
+Direction.UP_LEFT = new Direction(-1, 1);
+Direction.DOWN_LEFT = new Direction(-1, -1);
 
 function ChessBoard() {
 	// a board, represented in Javascript as an array
