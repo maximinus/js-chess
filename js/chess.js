@@ -33,13 +33,20 @@ function onClick() {
 	if(gfx.insideBoard(x, y) == false) {
 		return; }
 	// we clicked, it's on the board. Get co-ords
-	gfx.clearHighlights();
 	var pos = gfx.screenToBoard(x, y);
 	var piece = engine.board.getSquare(pos);
 	if(piece == EMPTY_SQUARE) {
+		gfx.clearHighlights();
 		return; }
 	// highlight
-	gfx.drawHighlights(pos, engine.getMoves(piece, pos));
+	// either we clicked a move, or a new piece. Decide
+	var check = gfx.checkMove(pos)
+
+	console.log(check);
+
+	gfx.clearHighlights();
+	if(gfx.checkMove(check) == false) {
+		gfx.drawHighlights(pos, engine.getMoves(piece, pos)); }
 };
 
 function update() {

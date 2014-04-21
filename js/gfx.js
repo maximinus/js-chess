@@ -1,10 +1,21 @@
 // class to handle all drawing to screen and animations
 
-function ChessPiece(xpos, ypos, sprite) {
-	// xpos and ypos are the positions on the board
-	this.xpos = xpos;
-	this.ypos = ypos;
+function ChessPiece(board_pos, sprite) {
+	this.board = board_pos;
 	this.sprite = sprite;
+};
+
+ChessPiece.prototype.move = function(new_pos) {
+	this.board = new_pos;
+	var screen_pos = boardToScreen(new_pos.xpos, new_pos.ypos);
+	this.sprite.x = screen_pos.xpos;
+	this.sprite.y = screen_pos.ypos;
+};
+
+ChessPiece.prototype.matches = function(position) {
+	if((position.xpos == this.xpos) && (position.ypos == this.ypos)) {
+		return(true); };
+	return(false);
 };
 
 function GFXEngine(game) {
@@ -27,7 +38,7 @@ GFXEngine.prototype.init = function(width, height) {
 GFXEngine.prototype.pieceFactory = function(xpos, ypos, image) {
 	var pos = this.boardToScreen(xpos, ypos);
 	var sprite = this.game.add.sprite(pos.xpos, pos.ypos, image);
-	return(new ChessPiece(xpos, ypos, sprite));
+	return(new ChessPiece(new Position(xpos, ypos), sprite));
 };
 
 GFXEngine.prototype.insideBoard = function(xpos, ypos) {
@@ -64,8 +75,33 @@ GFXEngine.prototype.updateBoard = function(xpos, ypos) {
 	}
 };
 
+GFXEngine.prototype.checkMove = function(position) {
+	if(this.highlights.length < 2) {
+		return(false); }
+	// does the position given match any current highlight?
+	for(var i=1; i<this.highlights; i++) {
+		if(this.highlights[i].matches(position)) {
+			// found our match, so we need to move a piece
+			var from = this.highlights[0].board;
+			var to = this.highlights[i].board;
+			this.move(from, to);
+			return([from, to]);
+		}
+	}
+	return(false);
+};
+
+GFXEngine.prototype.move = function(from, to) {
+	// lok for the piece and move it
+	for(var i in this.pieces) {
+		if(this.pieces[i].matches(from)) {
+			this.pieces[i].move(to); }
+	}
+};
+
 GFXEngine.prototype.drawHighlights = function(pos, moves) {
 	// xpos / ypos board co-ords
+	// first piece pushed must be original piece highlight
 	this.highlights.push(this.pieceFactory(pos.xpos, pos.ypos, HIGHLIGHT_MAIN));
 	// do the same with the possible moves
 	for(var i in moves) {
