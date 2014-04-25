@@ -36,11 +36,11 @@ function onClick() {
 	var pos = gfx.screenToBoard(x, y);
 	var piece = engine.board.getSquare(pos);
 	// check possible moves
-	gfx.clearHighlights();
 	if(gfx.checkMove(pos)) {
 		// TODO: update board
 		return; }
 	if(piece == EMPTY_SQUARE) {
+		gfx.clearHighlights();
 		return; }
 	gfx.drawHighlights(pos, engine.getMoves(piece, pos));
 };

@@ -1,19 +1,26 @@
 // class to handle all drawing to screen and animations
 
 function ChessPiece(board_pos, sprite) {
+	// a Position
 	this.board = board_pos;
 	this.sprite = sprite;
 };
 
-ChessPiece.prototype.move = function(new_pos) {
-	this.board = new_pos;
-	var screen_pos = boardToScreen(new_pos.xpos, new_pos.ypos);
+ChessPiece.prototype.move = function(board_pos, screen_pos) {
+	// both of these parameters are Positions
+	
+	console.log(board_pos.toString());
+	console.log(screen_pos.toString());
+	
+	// update on screen
+	this.board = board_pos;
 	this.sprite.x = screen_pos.xpos;
 	this.sprite.y = screen_pos.ypos;
 };
 
 ChessPiece.prototype.matches = function(position) {
-	if((position.xpos == this.xpos) && (position.ypos == this.ypos)) {
+	// is the position sent equal to our position?
+	if((position.xpos == this.board.xpos) && (position.ypos == this.board.ypos)) {
 		return(true); };
 	return(false);
 };
@@ -24,7 +31,7 @@ function GFXEngine(game) {
 };
 
 GFXEngine.prototype.init = function(width, height) {
-	// setup pieces
+	// noth of these next 2 are an array of ChessPieces
 	this.pieces = new Array();
 	this.highlights = new Array();
 	this.width = width;
@@ -79,7 +86,7 @@ GFXEngine.prototype.checkMove = function(position) {
 	if(this.highlights.length < 2) {
 		return(false); }
 	// does the position given match any current highlight?
-	for(var i=1; i<this.highlights; i++) {
+	for(var i=1; i<this.highlights.length; i++) {
 		if(this.highlights[i].matches(position)) {
 			// found our match, so we need to move a piece
 			var from = this.highlights[0].board;
@@ -92,15 +99,19 @@ GFXEngine.prototype.checkMove = function(position) {
 };
 
 GFXEngine.prototype.move = function(from, to) {
-	// lok for the piece and move it
+	// move a piece. First we find the piece
 	for(var i in this.pieces) {
 		if(this.pieces[i].matches(from)) {
-			this.pieces[i].move(to); }
+			// then move it
+			this.pieces[i].move(to, this.boardToScreen(to.xpos, to.ypos)); 
+			return;
+		}
 	}
 };
 
 GFXEngine.prototype.drawHighlights = function(pos, moves) {
 	// xpos / ypos board co-ords
+	this.clearHighlights();
 	// first piece pushed must be original piece highlight
 	this.highlights.push(this.pieceFactory(pos.xpos, pos.ypos, HIGHLIGHT_MAIN));
 	// do the same with the possible moves

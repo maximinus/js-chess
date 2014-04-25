@@ -24,10 +24,10 @@ function ChessBoard() {
 	for(var i=0; i<(BOARD_SIZE * BOARD_SIZE); i++) {
 		this.board.push(EMPTY_SQUARE);
 	}
-	this._setupBoard(initial_start);
+	this.setupBoard(initial_start);
 };
 
-ChessBoard.prototype._setupBoard = function(pieces) {
+ChessBoard.prototype.setupBoard = function(pieces) {
 	// (0, 0) is the bottom left
 	// data passed is sourced from JSON, or the 'start' variable
 	// it is a ditionary, so we parse through it:
