@@ -12,6 +12,8 @@ initial_start = {
 	"2,1":"white_pawn",
 	"3,3":"white_knight",
 	"4,5":"black_king",
+	"0,4":"black_pawn",
+	"1,5":"black_pawn",
 	"2,6":"black_pawn",
 };
 

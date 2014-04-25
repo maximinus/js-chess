@@ -132,15 +132,19 @@ MoveTable.prototype.buildWhitePawnMoves = function() {
 
 MoveTable.prototype.buildBlackPawnMoves = function() {
 	var move_table = new Array();
+	// y=0, push nothing
 	for(var x=0; x<BOARD_SIZE; x++) {
 		move_table.push([]); }
+	// y=1-5, push one move forward
 	for(var y=1; y<(BOARD_SIZE-2); y++) {
 		for(var x=0; x<BOARD_SIZE; x++) {
 			move_table.push([[new Position(x, y - 1)]]);
 		}
 	}
+	// y=6, push 2 moves
 	for(var x=0; x<BOARD_SIZE; x++) {
-		move_table.push([[new Position(x, 6), new Position(x, 5)]]); }
+		move_table.push([[new Position(x, 5), new Position(x, 4)]]); }
+	// y=7, push nothing
 	for(var x=0; x<BOARD_SIZE; x++) {
 		move_table.push([]); }
 	return(move_table);
