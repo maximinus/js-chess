@@ -1,4 +1,8 @@
-// basic start of chess game
+"use strict";
+
+// Chess game written in 100% Javascript
+// All code released under the GPL3 license
+
 var width = window.innerWidth * window.devicePixelRatio;
 var height = window.innerHeight * window.devicePixelRatio;
 var game = new Phaser.Game(width, height, Phaser.AUTO, '', { preload: preload, create: create, update: update });
@@ -22,7 +26,7 @@ function create() {
 	// let the graphics engine initialise now
 	game.stage.backgroundColor = BACKGROUND_COLOUR;
 	gfx.init(width, height);
-	gfx.drawBoard(engine.board);
+	gfx.drawBoard(engine.getBoard());
 	game.input.onDown.add(onClick, this);
 };
 
@@ -34,10 +38,12 @@ function onClick() {
 		return; }
 	// we clicked, it's on the board. Get co-ords
 	var pos = gfx.screenToBoard(x, y);
-	var piece = engine.board.getSquare(pos);
+	var piece = engine.getSquare(pos);
 	// check possible moves
-	if(gfx.checkMove(pos)) {
-		// TODO: update board
+	var new_move = gfx.checkMove(pos);
+	if(new_move != false) {
+		// update board
+		engine.movePiece(new_move[0], new_move[1]);
 		return; }
 	if(piece == EMPTY_SQUARE) {
 		gfx.clearHighlights();

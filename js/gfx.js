@@ -1,4 +1,6 @@
-// class to handle all drawing to screen and animations
+"use strict";
+
+// code to handle all drawing to screen and animations
 
 function ChessPiece(board_pos, sprite) {
 	// a Position
@@ -8,11 +10,6 @@ function ChessPiece(board_pos, sprite) {
 
 ChessPiece.prototype.move = function(board_pos, screen_pos) {
 	// both of these parameters are Positions
-	
-	console.log(board_pos.toString());
-	console.log(screen_pos.toString());
-	
-	// update on screen
 	this.board = board_pos;
 	this.sprite.x = screen_pos.xpos;
 	this.sprite.y = screen_pos.ypos;
@@ -92,6 +89,7 @@ GFXEngine.prototype.checkMove = function(position) {
 			var from = this.highlights[0].board;
 			var to = this.highlights[i].board;
 			this.move(from, to);
+			this.clearHighlights();
 			return([from, to]);
 		}
 	}

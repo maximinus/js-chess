@@ -1,3 +1,5 @@
+"use strict";
+
 // defines, magic numbers and constants for chess
 
 const BOARD_SIZE = 8;
