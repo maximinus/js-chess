@@ -97,6 +97,15 @@ ChessBoard.prototype.movePiece = function(start, end) {
 	this.board[start.index()] = EMPTY_SQUARE;
 };
 
+ChessBoard.prototype.score = function() {
+	// iterate along board
+	// TODO: use a reduce function?
+	var total = 0;
+	for(var i in this.board) {
+		total += SCORE[this.board[i]]; }
+	return(total);
+};
+
 // helper function
 function differentColour(p1, p2) {
 	return((p1 <= WHITE_MAX) && (p2 > WHITE_MAX));

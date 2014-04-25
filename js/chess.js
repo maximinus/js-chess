@@ -14,7 +14,7 @@ var gfx = new GFXEngine(game);
 function preload() {
 	game.load.image(BOARD, 'gfx/board.png');
 	// load the other images programmatically
-	for(var i=0; i<IMAGE_NAMES.length; i++) {
+	for(var i=1; i<IMAGE_NAMES.length; i++) {
 		game.load.image(IMAGE_NAMES[i], 'gfx/' + IMAGE_NAMES[i] + '.png');
 	}
 	game.load.image(HIGHLIGHT_MAIN, 'gfx/highlight_main.png');
