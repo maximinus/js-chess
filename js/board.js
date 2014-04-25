@@ -22,9 +22,12 @@ function Direction(xpos, ypos) {
 	this.ypos = ypos;
 };
 
-function ChessBoard() {
+function ChessBoard(array) {
 	// a board, represented in Javascript as an array
-	this.board = new Array();
+	this.board = array || new Array();
+};
+
+ChessBoard.prototype.setup = function() {
 	for(var i=0; i<(BOARD_SIZE * BOARD_SIZE); i++) {
 		this.board.push(EMPTY_SQUARE);
 	}
@@ -37,8 +40,8 @@ function ChessBoard() {
 
 ChessBoard.table = new MoveTable();
 
-ChessBoard.getMoves = function(piece, position, board) {
-	var moves = ChessBoard.table.moves[piece][position.index()];
+ChessBoard.getMoves = function(piece, index, board) {
+	var moves = ChessBoard.table.moves[piece][index];
 	// loop through all moves and all rays
 	var possibles = new Array();
 	// for all rays	
@@ -57,6 +60,23 @@ ChessBoard.getMoves = function(piece, position, board) {
 		}
 	}
 	return(possibles);
+};
+
+ChessBoard.prototype.getAllPossibleMoves = function(colour) {
+	// cycle through the board
+	var all_moves = [];
+	if(colour == WHITE) {
+		var isRightColour = isBlack; }
+	else {
+		var isRightColour = isWhite; }
+	// now let's get down to business
+	for(var i in this.board) {
+		var piece = this.board[i];
+		if(isRightColour(piece)) {
+			all_moves.append([indexToPosition(i), ChessBoard.getMoves(piece, i, this.board)]);
+		}
+	}
+	return(all_moves);
 };
 
 ChessBoard.prototype.setupBoard = function(pieces) {
@@ -78,6 +98,13 @@ ChessBoard.prototype.setupBoard = function(pieces) {
 		// finally!
 		this.setSquare(new Position(xpos, ypos), index);
 	};
+};
+
+ChessBoard.prototype.makeNewBoard = function(from, to) {
+	// return a new board
+	var new_board = new ChessBoard(this.board.board);
+	new_board.movePiece(from, to);
+	return(new_board);
 };
 
 ChessBoard.prototype.getIndex = function(index) {
@@ -106,8 +133,22 @@ ChessBoard.prototype.score = function() {
 	return(total);
 };
 
-// helper function
+// helper functions
 function differentColour(p1, p2) {
 	return((p1 <= WHITE_MAX) && (p2 > WHITE_MAX));
+};
+
+function isWhite(piece) {
+	return((piece >= WHITE_MIN) && (piece <= WHITE_MAX));
+};
+
+function isBlack(piece) {
+	return((piece >= BLACK_MIN) && (piece <= BLACK_MAX));
+};
+
+function indexToPosition(index) {
+	var y = index % BOARD_SIZE;
+	var x = index - (y * 8);
+	return(new Position(x, y));
 };
 

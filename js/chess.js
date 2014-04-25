@@ -23,9 +23,9 @@ function Game(player) {
 
 Game.prototype.playerTurn = function() {
 	// PLAYER is defined as true
-	if(this.game.turn == WHITE) {
-		return(this.game.white) }
-	return(this.game.black);
+	if(game.turn == WHITE) {
+		return(game.white) }
+	return(game.black);
 };
 
 // here come the singletons
