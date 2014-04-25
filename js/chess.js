@@ -7,9 +7,31 @@ var width = window.innerWidth * window.devicePixelRatio;
 var height = window.innerHeight * window.devicePixelRatio;
 var game = new Phaser.Game(width, height, Phaser.AUTO, '', { preload: preload, create: create, update: update });
 
-// we pollute the global namespace twice
-var engine = new ChessEngine();
+function Game(player) {
+	// stores all the details of the players
+	if(player == WHITE) {
+		this.white = PLAYER;
+		this.black = AI; }
+	else {
+		this.white = AI;
+		this.black = PLAYER; }
+	// always start with white player
+	this.turn = WHITE;
+	// an empty array to store the moves
+	this.moves = new Array();
+};
+
+Game.prototype.playerTurn = function() {
+	// PLAYER is defined as true
+	if(this.game.turn == WHITE) {
+		return(this.game.white) }
+	return(this.game.black);
+};
+
+// here come the singletons
 var gfx = new GFXEngine(game);
+var engine = new ChessEngine();
+var chess = new Game(WHITE);
 
 function preload() {
 	game.load.image(BOARD, 'gfx/board.png');
@@ -32,6 +54,9 @@ function create() {
 
 function onClick() {
 	// user has clicked screen. Need to do something?
+	if(chess.playerTurn() == false) {
+		// don't check the board
+		return; }
 	var x = game.input.x;
 	var y = game.input.y;
 	if(gfx.insideBoard(x, y) == false) {
