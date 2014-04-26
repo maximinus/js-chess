@@ -60,7 +60,7 @@ GFXEngine.prototype.drawBoard = function(board) {
 	// of the board in memory
 	// keeping 2 boards together would be highly ineffecient in the chess solving part
 	// iterate through the board and grab all the pieces
-	var position = new Position(0, 0);
+
 	for(var x=0; x<BOARD_SIZE; x++) {
 		for(var y=0; y<BOARD_SIZE; y++) {
 			var position = new Position(x, y);

@@ -23,12 +23,15 @@ function Direction(xpos, ypos) {
 };
 
 function ChessBoard() {
-	// a board, represented in Javascript as an array
-	this.board = new Array();
-	for(var i=0; i<(BOARD_SIZE * BOARD_SIZE); i++) {
-		this.board.push(EMPTY_SQUARE);
-	}
+	// a board, represented in Javascript as an unsigned bytes array
+	this.board = new Uint8Array(BOARD_SIZE * BOARD_SIZE); 
+	//We don't need that anymore, typed array automatically inited to zero
+	/*for(var i=0; i<(BOARD_SIZE * BOARD_SIZE); i++) {
+		this.board[i]= EMPTY_SQUARE;
+	}*/
 	this.setupBoard(initial_start);
+	this.score = this.calcScore();
+	console.log(this.score);
 };
 
 // attach a static variable + function shared by all boards
@@ -97,12 +100,14 @@ ChessBoard.prototype.movePiece = function(start, end) {
 	this.board[start.index()] = EMPTY_SQUARE;
 };
 
-ChessBoard.prototype.score = function() {
+ChessBoard.prototype.calcScore = function() {
 	// iterate along board
 	// TODO: use a reduce function?
 	var total = 0;
-	for(var i in this.board) {
-		total += SCORE[this.board[i]]; }
+	for (var i = 0; i < this.board.length; i++) {
+		total += SCORES[this.board[i]];
+		console.log(total);
+	}
 	return(total);
 };
 
