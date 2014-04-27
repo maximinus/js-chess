@@ -13,6 +13,9 @@ const BACKGROUND_COLOUR = 0xbbccee;
 const WHITE = true;
 const BLACK = false;
 
+const PLAYER = true;
+const AI = false;
+
 // the order of these names and the order of IMAGE_NAMES must be the same
 const EMPTY_SQUARE = 0;
 const WHITE_KING = 1;
@@ -28,7 +31,10 @@ const BLACK_BISHOP = 10;
 const BLACK_KNIGHT = 11;
 const BLACK_PAWN = 12;
 const HIGHEST_PIECE = BLACK_PAWN;
-const WHITE_MAX = 6;
+const WHITE_MIN = WHITE_KING;
+const WHITE_MAX = WHITE_PAWN;
+const BLACK_MIN = BLACK_KING;
+const BLACK_MAX = BLACK_PAWN;
 
 // scores. These must be in the same order as the list above
 const SCORES = [0, 200, 18, 10, 7, 6, 2, -200, -18, -10, -7, -6, -2];
