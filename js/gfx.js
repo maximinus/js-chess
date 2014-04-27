@@ -2,20 +2,20 @@
 
 // code to handle all drawing to screen and animations
 
-function ChessPiece(board_pos, sprite) {
+function GFXPiece(board_pos, sprite) {
 	// a Position
 	this.board = board_pos;
 	this.sprite = sprite;
 };
 
-ChessPiece.prototype.move = function(board_pos, screen_pos) {
+GFXPiece.prototype.move = function(board_pos, screen_pos) {
 	// both of these parameters are Positions
 	this.board = board_pos;
 	this.sprite.x = screen_pos.xpos;
 	this.sprite.y = screen_pos.ypos;
 };
 
-ChessPiece.prototype.matches = function(position) {
+GFXPiece.prototype.matches = function(position) {
 	// is the position sent equal to our position?
 	if((position.xpos == this.board.xpos) && (position.ypos == this.board.ypos)) {
 		return(true); };
@@ -29,7 +29,7 @@ function GFXEngine(game) {
 
 GFXEngine.prototype.init = function(width, height) {
 	// noth of these next 2 are an array of ChessPieces
-	this.pieces = new Array();
+	this.gfx_pieces = new Array();
 	this.highlights = new Array();
 	this.width = width;
 	this.height = height;
@@ -42,7 +42,7 @@ GFXEngine.prototype.init = function(width, height) {
 GFXEngine.prototype.pieceFactory = function(xpos, ypos, image) {
 	var pos = this.boardToScreen(xpos, ypos);
 	var sprite = this.game.add.sprite(pos.xpos, pos.ypos, image);
-	return(new ChessPiece(new Position(xpos, ypos), sprite));
+	return(new GFXPiece(new Position(xpos, ypos), sprite));
 };
 
 GFXEngine.prototype.insideBoard = function(xpos, ypos) {
@@ -54,7 +54,7 @@ GFXEngine.prototype.insideBoard = function(xpos, ypos) {
 };
 
 GFXEngine.prototype.drawBoard = function(board) {
-	this.game.add.sprite(this.boardx, this.boardy, 'board');
+	this.game.add.sprite(this.boardx, this.boardy, BOARD);
 	// this should be rare! Almost always we are just moving pieces.
 	// this means that when we draw the board we have to hold a differing representation
 	// of the board in memory
@@ -66,7 +66,7 @@ GFXEngine.prototype.drawBoard = function(board) {
 			var position = new Position(x, y);
 			var piece = board.getSquare(position);
 			if(piece != EMPTY_SQUARE) {
-				this.pieces.push(this.pieceFactory(x, y, IMAGE_NAMES[piece]));
+				this.gfx_pieces.push(this.pieceFactory(x, y, IMAGE_NAMES[piece]));
 			}
 		}
 	}
@@ -80,6 +80,8 @@ GFXEngine.prototype.updateBoard = function(xpos, ypos) {
 };
 
 GFXEngine.prototype.checkMove = function(position) {
+	console.log("pos:", position);
+	console.log("highlights:", this.highlights);
 	if(this.highlights.length < 2) {
 		return(false); }
 	// does the position given match any current highlight?
@@ -98,10 +100,10 @@ GFXEngine.prototype.checkMove = function(position) {
 
 GFXEngine.prototype.move = function(from, to) {
 	// move a piece. First we find the piece
-	for(var i in this.pieces) {
-		if(this.pieces[i].matches(from)) {
+	for(var i in this.gfx_pieces) {
+		if(this.gfx_pieces[i].matches(from)) {
 			// then move it
-			this.pieces[i].move(to, this.boardToScreen(to.xpos, to.ypos)); 
+			this.gfx_pieces[i].move(to, this.boardToScreen(to.xpos, to.ypos)); 
 			return;
 		}
 	}

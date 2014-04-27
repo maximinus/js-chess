@@ -31,7 +31,6 @@ function ChessBoard() {
 	}*/
 	this.setupBoard(initial_start);
 	this.score = this.calcScore();
-	console.log(this.score);
 };
 
 // attach a static variable + function shared by all boards
@@ -48,8 +47,11 @@ ChessBoard.getMoves = function(piece, position, board) {
 	for(var i in moves) {
 		// for each move in the ray...
 		for(var j in moves[i]) {
-			var square = board.getSquare(moves[i][j])
+			var square = board.getSquare(moves[i][j]);
+			//enconter a piece
 			if((square != EMPTY_SQUARE)) {
+				//if it's different color add that square to the arrary and stop,
+				//otherwise simply stop
 				if(differentColour(piece, square)) {
 					possibles.push(moves[i][j]);
 				}
@@ -82,13 +84,18 @@ ChessBoard.prototype.setupBoard = function(pieces) {
 		this.setSquare(new Position(xpos, ypos), index);
 	};
 };
-
+/* getIndex is just confusing, combine the function to getSqure
 ChessBoard.prototype.getIndex = function(index) {
 	return(this.board[index]);
-};
+};*/
 
 ChessBoard.prototype.getSquare = function(position) {
-	return(this.board[position.index()]);
+	//take both position or index as the argument
+	if(position instanceof Position){
+		return(this.board[position.index()]);
+	}else{
+		return(this.board[position]);
+	}
 };
 
 ChessBoard.prototype.setSquare = function(position, piece) {
@@ -106,7 +113,6 @@ ChessBoard.prototype.calcScore = function() {
 	var total = 0;
 	for (var i = 0; i < this.board.length; i++) {
 		total += SCORES[this.board[i]];
-		console.log(total);
 	}
 	return(total);
 };
