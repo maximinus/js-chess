@@ -27,7 +27,7 @@ MoveTable.prototype.buildKingMoves = function() {
 		for(var x=0; x<BOARD_SIZE; x++) {
 			var moves = new Array();
 			// try each move
-			//Here what has pushed into moves is not a single Position but an array with one element
+			// Here what has pushed into moves is not a single Position but an array with one element
 			if(onBoard(x + 1, y - 1))	{ moves.push([new Position(x + 1, y - 1)]); }
 			if(onBoard(x + 1, y))		{ moves.push([new Position(x + 1, y)]); }
 			if(onBoard(x + 1, y + 1))	{ moves.push([new Position(x + 1, y + 1)]); }

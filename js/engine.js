@@ -3,6 +3,7 @@
 function ChessEngine() {
 	// class to handle playing a game of chess
 	this.board = new ChessBoard();
+	this.board.setupBoard(initial_start);
 };
 
 

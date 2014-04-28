@@ -1,3 +1,4 @@
+"use strict;"
 
 // defines, magic numbers and constants for chess
 

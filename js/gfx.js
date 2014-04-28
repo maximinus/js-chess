@@ -28,7 +28,7 @@ function GFXEngine(game) {
 };
 
 GFXEngine.prototype.init = function(width, height) {
-	// noth of these next 2 are an array of ChessPieces
+	// both of these next 2 are an array of ChessPieces
 	this.gfx_pieces = new Array();
 	this.highlights = new Array();
 	this.width = width;
@@ -60,7 +60,6 @@ GFXEngine.prototype.drawBoard = function(board) {
 	// of the board in memory
 	// keeping 2 boards together would be highly ineffecient in the chess solving part
 	// iterate through the board and grab all the pieces
-
 	for(var x=0; x<BOARD_SIZE; x++) {
 		for(var y=0; y<BOARD_SIZE; y++) {
 			var position = new Position(x, y);
