@@ -78,8 +78,6 @@ GFXEngine.prototype.updateBoard = function(xpos, ypos) {
 };
 
 GFXEngine.prototype.checkMove = function(position) {
-	console.log("pos:", position);
-	console.log("highlights:", this.highlights);
 	if(this.highlights.length < 2) {
 		return(false); }
 	// does the position given match any current highlight?

@@ -15,8 +15,8 @@ function getIndex(xpos, ypos) {
 
 function getPosition(index) {
 	// get a Position from an index
-	var ypos = index \ BOARD_SIZE;
-	var xpos = index - (ypos * BOARD_SIZE);
+	var xpos = index % BOARD_SIZE;
+	var ypos = (index - xpos) / BOARD_SIZE;
 	return(new Position(xpos, ypos));
 };
 

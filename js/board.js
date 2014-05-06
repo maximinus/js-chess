@@ -87,7 +87,7 @@ ChessBoard.prototype.makeNewBoard = function(from, to) {
 };
 
 ChessBoard.prototype.getSquare = function(index) {
-	return(this.board[position]); }
+	return(this.board[index]);
 };
 
 ChessBoard.prototype.setSquare = function(index, piece) {
