@@ -108,9 +108,8 @@ GFXEngine.prototype.move = function(from, to) {
 GFXEngine.prototype.drawHighlights = function(pos, moves) {
 	// xpos / ypos board co-ords
 	this.clearHighlights();
-	var place = getPosition(pos);
 	// first piece pushed must be original piece highlight
-	this.highlights.push(this.pieceFactory(place.xpos, place.ypos, HIGHLIGHT_MAIN));
+	this.highlights.push(this.pieceFactory(pos.xpos, pos.ypos, HIGHLIGHT_MAIN));
 	// do the same with the possible moves
 	for(var i in moves) {
 		var place = getPosition(moves[i]);
