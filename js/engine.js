@@ -34,11 +34,12 @@ ChessEngine.prototype.getBestMove = function(colour) {
 			index = i; }
 	}
 	// i is the index of the board with the best move
+	return(i);
 };
 
 // simple layer API to enfore encapsulation
-ChessEngine.prototype.getSquare = function(position) {
-	return(this.board.getSquare(position));
+ChessEngine.prototype.getSquare = function(index) {
+	return(this.board.getSquare(index));
 };
 
 ChessEngine.prototype.movePiece = function(from, to) {

@@ -62,8 +62,7 @@ GFXEngine.prototype.drawBoard = function(board) {
 	// iterate through the board and grab all the pieces
 	for(var x=0; x<BOARD_SIZE; x++) {
 		for(var y=0; y<BOARD_SIZE; y++) {
-			var position = new Position(x, y);
-			var piece = board.getSquare(position);
+			var piece = board.getSquare(getIndex(x, y));
 			if(piece != EMPTY_SQUARE) {
 				this.gfx_pieces.push(this.pieceFactory(x, y, IMAGE_NAMES[piece]));
 			}
@@ -111,11 +110,13 @@ GFXEngine.prototype.move = function(from, to) {
 GFXEngine.prototype.drawHighlights = function(pos, moves) {
 	// xpos / ypos board co-ords
 	this.clearHighlights();
+	var place = getPosition(pos);
 	// first piece pushed must be original piece highlight
-	this.highlights.push(this.pieceFactory(pos.xpos, pos.ypos, HIGHLIGHT_MAIN));
+	this.highlights.push(this.pieceFactory(place.xpos, place.ypos, HIGHLIGHT_MAIN));
 	// do the same with the possible moves
 	for(var i in moves) {
-		this.highlights.push(this.pieceFactory(moves[i].xpos, moves[i].ypos, HIGHLIGHT_OTHER));
+		var place = getPosition(moves[i]);
+		this.highlights.push(this.pieceFactory(place.xpos, place.ypos, HIGHLIGHT_OTHER));
 	}
 };
 

@@ -13,6 +13,13 @@ function getIndex(xpos, ypos) {
 	return((ypos * BOARD_SIZE) + xpos);
 };
 
+function getPosition(index) {
+	// get a Position from an index
+	var ypos = index \ BOARD_SIZE;
+	var xpos = index - (ypos * BOARD_SIZE);
+	return(new Position(xpos, ypos));
+};
+
 Position.prototype.index = function() {
 	return((this.ypos * BOARD_SIZE) + this.xpos);
 };

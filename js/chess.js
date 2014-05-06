@@ -63,7 +63,7 @@ function onClick() {
 		return; }
 	// we clicked, it's on the board. Get co-ords
 	var pos = gfx.screenToBoard(x, y);
-	var piece = engine.getSquare(pos);
+	var piece = engine.getSquare(pos.index());
 	// check possible moves
 	var new_move = gfx.checkMove(pos);
 	if(new_move != false) {

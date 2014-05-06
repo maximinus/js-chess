@@ -95,8 +95,8 @@ ChessBoard.prototype.setSquare = function(index, piece) {
 };
 
 ChessBoard.prototype.movePiece = function(start, end) {
-	this.board[end.index()] = this.board[start.index()];
-	this.board[start.index()] = EMPTY_SQUARE;
+	this.board[end] = this.board[start];
+	this.board[start] = EMPTY_SQUARE;
 };
 
 ChessBoard.prototype.score = function() {
