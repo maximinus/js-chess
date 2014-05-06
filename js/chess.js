@@ -69,11 +69,18 @@ function onClick() {
 	if(new_move != false) {
 		// update board
 		engine.movePiece(new_move[0], new_move[1]);
+		// note: other player has moved, now the computer better move
+		playAIMove();
 		return; }
 	if(piece == EMPTY_SQUARE) {
 		gfx.clearHighlights();
 		return; }
-	gfx.drawHighlights(pos, engine.getMoves(piece, pos));
+	gfx.drawHighlights(pos, engine.getMoves(piece, pos));	
+};
+
+function playAIMove() {
+	// get the best move
+	// display it
 };
 
 function update() {
