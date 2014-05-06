@@ -2,26 +2,6 @@
 
 // Classes for handling the board used by the Chess engine
 
-function Position(xpos, ypos) {
-	// a Position holds x/y co-ords for pieces
-	this.xpos = xpos;
-	this.ypos = ypos;
-};
-
-Position.prototype.index = function() {
-	return((this.ypos * BOARD_SIZE) + this.xpos);
-};
-
-Position.prototype.toString = function() {
-	return('Position: x=' + this.xpos.toString() + ', y=' + this.ypos.toString());
-};
-
-function Direction(xpos, ypos) {
-	// a Direction is just an offset
-	this.xpos = xpos;
-	this.ypos = ypos;
-};
-
 function ChessBoard(array) {
 	// a board, represented in Javascript as an unsigned bytes array
 	this.board = array || new Uint8Array(BOARD_SIZE * BOARD_SIZE);
@@ -72,7 +52,7 @@ ChessBoard.prototype.getAllPossibleMoves = function(colour) {
 	for(var i in this.board) {
 		var piece = this.board[i];
 		if(isRightColour(piece)) {
-			all_moves.append([indexToPosition(i), ChessBoard.getMoves(piece, i, this.board)]);
+			all_moves.append([i, ChessBoard.getMoves(piece, i, this.board)]);
 		}
 	}
 	return(all_moves);
@@ -95,7 +75,7 @@ ChessBoard.prototype.setupBoard = function(pieces) {
 		if(index == -1) {
 			return(false); }
 		// finally!
-		this.setSquare(new Position(xpos, ypos), index);
+		this.setSquare((ypos * BOARD_SIZE) + xpos, index);
 	};
 };
 
@@ -106,16 +86,12 @@ ChessBoard.prototype.makeNewBoard = function(from, to) {
 	return(new_board);
 };
 
-ChessBoard.prototype.getSquare = function(position) {
-	//take both position or index as the argument
-	if(position instanceof Position){
-		return(this.board[position.index()]); }
-	else {
-		return(this.board[position]); }
+ChessBoard.prototype.getSquare = function(index) {
+	return(this.board[position]); }
 };
 
-ChessBoard.prototype.setSquare = function(position, piece) {
-	this.board[position.index()] = piece;
+ChessBoard.prototype.setSquare = function(index, piece) {
+	this.board[index] = piece;
 };
 
 ChessBoard.prototype.movePiece = function(start, end) {
@@ -146,9 +122,4 @@ function isBlack(piece) {
 	return((piece >= BLACK_MIN) && (piece <= BLACK_MAX));
 };
 
-function indexToPosition(index) {
-	var y = index % BOARD_SIZE;
-	var x = index - (y * 8);
-	return(new Position(x, y));
-};
 

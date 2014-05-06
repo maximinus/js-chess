@@ -20,6 +20,9 @@ function MoveTable() {
 	this.moves[BLACK_PAWN] = this.buildBlackPawnMoves();
 };
 
+// Note: at first I generated a Position object, but for speed all we ever need is the offset
+// into the array index. It's much faster.
+
 MoveTable.prototype.buildKingMoves = function() {
 	// calculate all king moves
 	var move_table = new Array();
@@ -28,14 +31,14 @@ MoveTable.prototype.buildKingMoves = function() {
 			var moves = new Array();
 			// try each move
 			// Here what has pushed into moves is not a single Position but an array with one element
-			if(onBoard(x + 1, y - 1))	{ moves.push([new Position(x + 1, y - 1)]); }
-			if(onBoard(x + 1, y))		{ moves.push([new Position(x + 1, y)]); }
-			if(onBoard(x + 1, y + 1))	{ moves.push([new Position(x + 1, y + 1)]); }
-			if(onBoard(x, y - 1))		{ moves.push([new Position(x, y - 1)]); }
-			if(onBoard(x, y + 1))		{ moves.push([new Position(x, y + 1)]); }
-			if(onBoard(x - 1, y - 1))	{ moves.push([new Position(x - 1, y - 1)]); }
-			if(onBoard(x - 1, y))		{ moves.push([new Position(x - 1, y)]); }
-			if(onBoard(x - 1, y + 1))	{ moves.push([new Position(x - 1, y + 1)]); }
+			if(onBoard(x + 1, y - 1))	{ moves.push([getIndex(x + 1, y - 1)]); }
+			if(onBoard(x + 1, y))		{ moves.push([getIndex(x + 1, y)]); }
+			if(onBoard(x + 1, y + 1))	{ moves.push([getIndex(x + 1, y + 1)]); }
+			if(onBoard(x, y - 1))		{ moves.push([getIndex(x, y - 1)]); }
+			if(onBoard(x, y + 1))		{ moves.push([getIndex(x, y + 1)]); }
+			if(onBoard(x - 1, y - 1))	{ moves.push([getIndex(x - 1, y - 1)]); }
+			if(onBoard(x - 1, y))		{ moves.push([getIndex(x - 1, y)]); }
+			if(onBoard(x - 1, y + 1))	{ moves.push([getIndex(x - 1, y + 1)]); }
 			move_table.push(moves);
 		}
 	}
@@ -98,14 +101,14 @@ MoveTable.prototype.buildKnightMoves = function() {
 	for(var y=0; y<BOARD_SIZE; y++) {
 		for(var x=0; x<BOARD_SIZE; x++) {
 			var moves = new Array();
-			if(onBoard(x + 1, y + 2))	{ moves.push([new Position(x + 1, y + 2)]); }
-			if(onBoard(x + 2, y + 1))	{ moves.push([new Position(x + 2, y + 1)]); }
-			if(onBoard(x + 2, y - 1))	{ moves.push([new Position(x + 2, y - 1)]); }
-			if(onBoard(x + 1, y - 2))	{ moves.push([new Position(x + 1, y - 2)]); }
-			if(onBoard(x - 1, y - 2))	{ moves.push([new Position(x - 1, y - 2)]); }
-			if(onBoard(x - 2, y - 1))	{ moves.push([new Position(x - 2, y - 1)]); }
-			if(onBoard(x - 2, y + 1))	{ moves.push([new Position(x - 2, y + 1)]); }
-			if(onBoard(x - 1, y + 2))	{ moves.push([new Position(x - 1, y + 2)]); }
+			if(onBoard(x + 1, y + 2))	{ moves.push([getIndex(x + 1, y + 2)]); }
+			if(onBoard(x + 2, y + 1))	{ moves.push([getIndex(x + 2, y + 1)]); }
+			if(onBoard(x + 2, y - 1))	{ moves.push([getIndex(x + 2, y - 1)]); }
+			if(onBoard(x + 1, y - 2))	{ moves.push([getIndex(x + 1, y - 2)]); }
+			if(onBoard(x - 1, y - 2))	{ moves.push([getIndex(x - 1, y - 2)]); }
+			if(onBoard(x - 2, y - 1))	{ moves.push([getIndex(x - 2, y - 1)]); }
+			if(onBoard(x - 2, y + 1))	{ moves.push([getIndex(x - 2, y + 1)]); }
+			if(onBoard(x - 1, y + 2))	{ moves.push([getIndex(x - 1, y + 2)]); }
 			move_table.push(moves);
 		}
 	}
@@ -119,11 +122,11 @@ MoveTable.prototype.buildWhitePawnMoves = function() {
 	for(var x=0; x<BOARD_SIZE; x++) {
 		move_table.push([]); }
 	for(var x=0; x<BOARD_SIZE; x++) {
-		move_table.push([[new Position(x, 2), new Position(x, 3)]]);
+		move_table.push([[getIndex(x, 2), getIndex(x, 3)]]);
 	}
 	for(var y=2; y<(BOARD_SIZE-1); y++) {
 		for(var x=0; x<BOARD_SIZE; x++) {
-			move_table.push([[new Position(x, y + 1)]]);
+			move_table.push([[getIndex(x, y + 1)]]);
 		}
 	}
 	for(var x=0; x<BOARD_SIZE; x++) {
@@ -139,12 +142,12 @@ MoveTable.prototype.buildBlackPawnMoves = function() {
 	// y=1-5, push one move forward
 	for(var y=1; y<(BOARD_SIZE-2); y++) {
 		for(var x=0; x<BOARD_SIZE; x++) {
-			move_table.push([[new Position(x, y - 1)]]);
+			move_table.push([[getIndex(x, y - 1)]]);
 		}
 	}
 	// y=6, push 2 moves
 	for(var x=0; x<BOARD_SIZE; x++) {
-		move_table.push([[new Position(x, 5), new Position(x, 4)]]); }
+		move_table.push([[getIndex(x, 5), getIndex(x, 4)]]); }
 	// y=7, push nothing
 	for(var x=0; x<BOARD_SIZE; x++) {
 		move_table.push([]); }
@@ -166,7 +169,7 @@ function castRay(position, direction) {
 	position.xpos += direction.xpos;
 	position.ypos += direction.ypos;
 	while(onBoard(position.xpos, position.ypos)) {
-		ray.push(new Position(position.xpos, position.ypos));
+		ray.push(getIndex(position.xpos, position.ypos));
 		position.xpos += direction.xpos;
 		position.ypos += direction.ypos;
 	}
